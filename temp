@@ -1,0 +1,101 @@
+IF_FLAG_ON( ADC_RESULT_FLAG ){ // in menu adc result
+
+			Lcd3310_ClearCenter();
+			Lcd3310_GotoXY(0, 1);
+			Lcd3310_String_P( pstr_please_wait, BLACK_TEXT_ON_WHITE );
+			Lcd3310_GotoXY(1, 3);
+			Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
+			for(uint8_t color=0; color < 3; color++){
+				Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+				LedDriver_SwitchLeds( led_show_codes[color] );
+				_delay_ms( DELAY_BEFORE_START_ADC );
+				Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+				ADC_255_Times();
+				Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+
+				DEBUG_PRINT_CHAR('\1');
+				DEBUG_PRINT_UINT16(adc_res_first);
+				DEBUG_PRINT_CHAR('\2');
+				DEBUG_PRINT_UINT16(adc_res_second);
+				DEBUG_PRINT_CHAR( '\0' );
+
+				int16_t result1 = (int16_t)((double)((double)(adc_res_first - zero[FIRST]) * coefs[FIRST][color]));
+				int16_t result2 = (int16_t)((double)((double)(adc_res_second - zero[SECOND]) * coefs[SECOND][color]));
+
+				result[FIRST][color] = result1;
+				result[SECOND][color] = result2;
+				result[PERCENT][color] = DIFF(result1, result2) * 100 / max_diff;
+
+//				DEBUG_PRINT_CHAR(color);
+//				DEBUG_PRINT_UINT16(result[FIRST][color]);
+//				DEBUG_PRINT_UINT16(result[SECOND][color]);
+//				DEBUG_PRINT_UINT16(result[PERCENT][color]);
+//				DEBUG_PRINT_CHAR( '\n' );
+			}
+			Lcd3310_Char(']', BLACK_TEXT_ON_WHITE);
+			_delay_ms(200);
+//			show_me_1 = adc_res_first; //(uint16_t)((double) ((double)(adc_res_first - zero_red_1) * K1_r));  /// MAX_ADC_VALUE * 100);
+//			show_me_2 = adc_res_second; //(uint16_t)((double) ((double)(adc_res_second - zero_red_2) * K2_r)); // / MAX_ADC_VALUE * 100);
+
+			FLAGS_SWITCH_OFF( ADC_RESULT_FLAG );
+			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
+		}
+
+		IF_FLAG_ON( ADC_CALIBRATE_FLAG ){
+
+			Lcd3310_ClearCenter();
+			Lcd3310_GotoXY(0, 1);
+			Lcd3310_String_P( pstr_please_wait, BLACK_TEXT_ON_WHITE );
+			Lcd3310_GotoXY(1, 3);
+			Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
+			for(uint8_t color=0; color < 3; color++){
+				Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+				LedDriver_SwitchLeds( led_show_codes[color] );
+				_delay_ms( DELAY_BEFORE_START_ADC );
+				Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+				ADC_255_Times();
+				Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+
+				DEBUG_PRINT_CHAR('1');
+				DEBUG_PRINT_UINT16(adc_res_first);
+				DEBUG_PRINT_CHAR('2');
+				DEBUG_PRINT_UINT16(adc_res_second);
+				DEBUG_PRINT_CHAR( '\n' );
+
+
+				coefs[FIRST][color] = (double) 0.8 * ADC_MAX_VALUE / adc_res_first;
+				coefs[SECOND][color] = (double) 0.8 * ADC_MAX_VALUE / adc_res_second;
+			}
+			Lcd3310_Char(']', BLACK_TEXT_ON_WHITE);
+
+			Lcd3310_GotoXY(2, 5);
+			Lcd3310_String_P( pstr_complete, BLACK_TEXT_ON_WHITE );
+			_delay_ms(1000);
+			FLAGS_SWITCH_OFF( ADC_CALIBRATE_FLAG );
+		}
+
+		IF_FLAG_ON( ADC_SET_ZERO ){
+			FLAGS_SWITCH_OFF( ADC_SET_ZERO );
+			Lcd3310_ClearCenter();
+			Lcd3310_GotoXY(0, 1);
+			Lcd3310_String_P( pstr_please_wait, BLACK_TEXT_ON_WHITE );
+			Lcd3310_GotoXY(5, 3);
+			Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
+			Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+			LedDriver_SwitchLeds( 0x00 ); // off all
+			_delay_ms( DELAY_BEFORE_START_ADC );
+			Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+			ADC_255_Times();
+			Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+
+			zero[FIRST] = adc_res_first;
+			zero[SECOND] = adc_res_second;
+
+			max_diff = ADC_MAX_VALUE -  (adc_res_first < adc_res_second) ? adc_res_first : adc_res_second;
+
+			Lcd3310_Char(']', BLACK_TEXT_ON_WHITE);
+
+			Lcd3310_GotoXY(2, 5);
+			Lcd3310_String_P( pstr_complete, BLACK_TEXT_ON_WHITE );
+			_delay_ms(1000);
+		}

@@ -1,0 +1,811 @@
+Archive member included because of file (symbol)
+
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_udivmodhi4.o)
+                              ./src/algorithm.o (__udivmodhi4)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o (exit)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+                              ./src/algorithm.o (__do_copy_data)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+                              ./src/algorithm.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+                              ./src/lcd/lcd_nokia_3310_frm_brunql.o (__fixunssfsi)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o) (__subsf3)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                              ./src/algorithm.o (__mulsf3)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                              ./src/algorithm.o (__divsf3)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                              ./src/lcd/lcd_nokia_3310_frm_brunql.o (__gtsf2)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o) (__gesf2)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                              ./src/lcd/lcd_nokia_3310_frm_brunql.o (__ltsf2)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                              ./src/algorithm.o (__floatsisf)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                              ./src/algorithm.o (__fixsfsi)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_thenan_sf.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o) (__thenan_sf)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                              ./src/lcd/lcd_nokia_3310_frm_brunql.o (__floatunsisf)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_prologue.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o) (__prologue_saves__)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_epilogue.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o) (__epilogue_restores__)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o) (__clzsi2)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_pack_sf.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o) (__pack_f)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_unpack_sf.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o) (__unpack_f)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fpcmp_parts_sf.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o) (__fpcmp_parts_f)
+/usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clz.o)
+                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o) (__clz_tab)
+
+Allocating common symbols
+Common symbol       size              file
+
+menu_now_atomic     0x2               ./src/lcd/lcd_nokia_menu.o
+menu_now            0x2               ./src/lcd/lcd_nokia_menu.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00002000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+LOAD ./src/algorithm.o
+LOAD ./src/debug.o
+LOAD ./src/led_driver.o
+LOAD ./src/main.o
+LOAD ./src/uint8_16_to_string.o
+LOAD ./src/lcd/lcd_nokia_3310_frm_brunql.o
+LOAD ./src/lcd/lcd_nokia_menu.o
+LOAD /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a
+LOAD /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/libm.a
+LOAD /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a
+LOAD /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/libc.a
+LOAD /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x1d74
+ *(.vectors)
+ .vectors       0x00000000       0x26 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x00000026      0x1c7 ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                0x00000026                FontLookup
+                0x000001ee                . = ALIGN (0x2)
+ *fill*         0x000001ed        0x1 00
+                0x000001ee                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x000001ee        0x0 linker stubs
+ *(.trampolines*)
+                0x000001ee                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x000001ee                __ctors_start = .
+ *(.ctors)
+                0x000001ee                __ctors_end = .
+                0x000001ee                __dtors_start = .
+ *(.dtors)
+                0x000001ee                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x000001ee        0x0 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+                0x000001ee                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x000001ee        0xc /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x000001fa       0x16 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+                0x000001fa                __do_copy_data
+ .init4         0x00000210       0x10 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+                0x00000210                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000220        0x4 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+ *(.init9)
+ *(.text)
+ .text          0x00000224        0x2 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+                0x00000224                __vector_12
+                0x00000224                __bad_interrupt
+                0x00000224                __vector_6
+                0x00000224                __vector_3
+                0x00000224                __vector_11
+                0x00000224                __vector_13
+                0x00000224                __vector_17
+                0x00000224                __vector_7
+                0x00000224                __vector_5
+                0x00000224                __vector_4
+                0x00000224                __vector_9
+                0x00000224                __vector_15
+                0x00000224                __vector_8
+                0x00000224                __vector_10
+                0x00000224                __vector_16
+                0x00000224                __vector_18
+ .text          0x00000226      0x3ae ./src/algorithm.o
+                0x0000040e                SaveResultsAlgorithm
+                0x00000348                ADC_255_Times
+                0x000004d2                ADC_LoadingAndEvalIt
+                0x00000368                CalibrationAlgorithm
+                0x000002c6                GetValuesFromADC
+                0x00000226                hex2dec_result
+                0x00000400                SetZeroAlgorithm
+                0x000002ac                StartADC
+ .text          0x000005d4        0x0 ./src/debug.o
+ .text          0x000005d4       0x4e ./src/led_driver.o
+                0x00000610                LedDriver_Init
+                0x000005d4                LedDriver_SwitchLeds
+ .text          0x00000622      0x20a ./src/main.o
+                0x00000622                __vector_1
+                0x0000070e                main
+                0x000006a6                __vector_2
+                0x000006e6                __vector_14
+ .text          0x0000082c       0xd8 ./src/uint8_16_to_string.o
+                0x00000890                UInt16ToString
+                0x00000846                UInt8ToString
+                0x0000082c                HalfByteAsASCII
+ .text          0x00000904      0x306 ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                0x00000a04                Lcd3310_GotoXY
+                0x00000bb2                Lcd3310_Send
+                0x00000bae                Lcd3310_InitFill
+                0x00000bf0                Lcd3310_UInt8AsText
+                0x000009a2                Lcd3310_String_P
+                0x00000904                Lcd3310_Char
+                0x00000bc8                Lcd3310_UInt16AsText
+                0x00000a32                Lcd3310_ClearCenter
+                0x00000a6a                Lcd3310_Init
+ .text          0x00000c0a      0x2e4 ./src/lcd/lcd_nokia_menu.o
+                0x00000c0a                init_menu_now
+                0x00000e3e                Menu_EnterClick
+                0x00000c18                Lcd3310_UpdateDisplayInfo
+                0x00000e2c                Lcd3310_InitializeDisplay
+ .text          0x00000eee        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_udivmodhi4.o)
+ .text          0x00000eee        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+ .text          0x00000eee        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+ .text          0x00000eee        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+ .text          0x00000eee       0x50 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+                0x00000eee                __fixunssfsi
+ .text          0x00000f3e      0x338 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+                0x000011d2                __subsf3
+                0x00001228                __addsf3
+ .text          0x00001276      0x1ea /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                0x00001276                __mulsf3
+ .text          0x00001460      0x14e /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                0x00001460                __divsf3
+ .text          0x000015ae       0x56 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                0x000015ae                __gtsf2
+ .text          0x00001604       0x56 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                0x00001604                __gesf2
+ .text          0x0000165a       0x56 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                0x0000165a                __ltsf2
+ .text          0x000016b0       0xb4 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                0x000016b0                __floatsisf
+ .text          0x00001764       0xa2 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                0x00001764                __fixsfsi
+ .text          0x00001806        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_thenan_sf.o)
+ .text          0x00001806       0xea /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                0x00001806                __floatunsisf
+ .text          0x000018f0        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_prologue.o)
+ .text          0x000018f0        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_epilogue.o)
+ .text          0x000018f0       0x9e /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+                0x000018f0                __clzsi2
+ .text          0x0000198e      0x1aa /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_pack_sf.o)
+                0x0000198e                __pack_f
+ .text          0x00001b38       0xf0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_unpack_sf.o)
+                0x00001b38                __unpack_f
+ .text          0x00001c28       0xb2 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fpcmp_parts_sf.o)
+                0x00001c28                __fpcmp_parts_f
+ .text          0x00001cda        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clz.o)
+                0x00001cda                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x00001cda       0x28 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_udivmodhi4.o)
+                0x00001cda                __udivmodhi4
+ .text.libgcc   0x00001d02        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+ .text.libgcc   0x00001d02        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001d02        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00001d02       0x38 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_prologue.o)
+                0x00001d02                __prologue_saves__
+ .text.libgcc   0x00001d3a       0x36 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_epilogue.o)
+                0x00001d3a                __epilogue_restores__
+                0x00001d70                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00001d70        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+                0x00001d70                exit
+                0x00001d70                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00001d70        0x4 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+ *(.fini0)
+                0x00001d74                _etext = .
+
+.data           0x00800060      0x236 load address 0x00001d74
+                0x00800060                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800060        0x0 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+ .data          0x00800060       0x21 ./src/algorithm.o
+                0x00800060                max_diff
+                0x0080007f                pstr_please_wait
+                0x00800062                led_show_codes
+                0x0080006e                pstr_complete
+ .data          0x00800081        0x0 ./src/debug.o
+ .data          0x00800081        0x0 ./src/led_driver.o
+ .data          0x00800081        0x0 ./src/main.o
+ .data          0x00800081        0x0 ./src/uint8_16_to_string.o
+ .data          0x00800081        0x0 ./src/lcd/lcd_nokia_3310_frm_brunql.o
+ .data          0x00800081      0x10c ./src/lcd/lcd_nokia_menu.o
+                0x00800091                lcd_first_str
+                0x008000a2                go
+                0x00800182                text
+                0x008000bc                results
+                0x008000f0                calibration
+                0x0080010a                set_zero
+                0x008000d6                setup
+                0x0080013e                readme
+                0x00800081                menu_before_now
+                0x00800124                back_setup
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_udivmodhi4.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+ .data          0x0080018d        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+ .data          0x0080018d        0x8 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_thenan_sf.o)
+                0x0080018d                __thenan_sf
+ .data          0x00800195        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+ .data          0x00800195        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_prologue.o)
+ .data          0x00800195        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_epilogue.o)
+ .data          0x00800195        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+ .data          0x00800195        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_pack_sf.o)
+ .data          0x00800195        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_unpack_sf.o)
+ .data          0x00800195        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fpcmp_parts_sf.o)
+ .data          0x00800195      0x100 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clz.o)
+                0x00800195                __clz_tab
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800296                . = ALIGN (0x2)
+ *fill*         0x00800295        0x1 00
+                0x00800296                _edata = .
+                0x00800296                PROVIDE (__data_end, .)
+
+.bss            0x00800296       0x40 load address 0x00001faa
+                0x00800296                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800296        0x0 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+ .bss           0x00800296       0x2e ./src/algorithm.o
+                0x008002c2                adc_res_second
+                0x00800296                coefs
+                0x008002c0                adc_res_first
+                0x008002ae                result
+ .bss           0x008002c4        0x0 ./src/debug.o
+ .bss           0x008002c4        0x0 ./src/led_driver.o
+ .bss           0x008002c4        0x4 ./src/main.o
+                0x008002c5                atomic_temp
+                0x008002c6                adc_data
+                0x008002c4                flags
+ .bss           0x008002c8        0x4 ./src/uint8_16_to_string.o
+                0x008002c8                to_string_result
+ .bss           0x008002cc        0x2 ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                0x008002cc                Lcd3310_Index
+ .bss           0x008002ce        0x4 ./src/lcd/lcd_nokia_menu.o
+                0x008002ce                callibrate
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_udivmodhi4.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_thenan_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_prologue.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_epilogue.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_pack_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_unpack_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fpcmp_parts_sf.o)
+ .bss           0x008002d2        0x0 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clz.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x008002d2        0x4 ./src/lcd/lcd_nokia_menu.o
+                0x008002d2                menu_now_atomic
+                0x008002d4                menu_now
+                0x008002d6                PROVIDE (__bss_end, .)
+                0x00001d74                __data_load_start = LOADADDR (.data)
+                0x00001faa                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008002d6        0x0
+                0x008002d6                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008002d6                PROVIDE (__noinit_end, .)
+                0x008002d6                _end = .
+                0x008002d6                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000     0x375c
+ *(.stab)
+ .stab          0x00000000      0x6b4 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+ .stab          0x000006b4      0xbe8 ./src/algorithm.o
+                                0xbf4 (size before relaxing)
+ .stab          0x0000129c      0x150 ./src/debug.o
+                                0x3a8 (size before relaxing)
+ .stab          0x000013ec      0x21c ./src/led_driver.o
+                                0x3d8 (size before relaxing)
+ .stab          0x00001608      0x9cc ./src/main.o
+                                0xcb4 (size before relaxing)
+ .stab          0x00001fd4      0x3fc ./src/uint8_16_to_string.o
+                                0x5b8 (size before relaxing)
+ .stab          0x000023d0      0xb7c ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                0xe1c (size before relaxing)
+ .stab          0x00002f4c      0x810 ./src/lcd/lcd_nokia_menu.o
+                                0xaec (size before relaxing)
+
+.stabstr        0x00000000     0x1466
+ *(.stabstr)
+ .stabstr       0x00000000     0x1466 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(ColorsCMP_EclipseEdition.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+ADC_255_Times                                     ./src/algorithm.o
+ADC_LoadingAndEvalIt                              ./src/algorithm.o
+                                                  ./src/main.o
+CalibrationAlgorithm                              ./src/algorithm.o
+                                                  ./src/main.o
+FontLookup                                        ./src/lcd/lcd_nokia_3310_frm_brunql.o
+GetValuesFromADC                                  ./src/algorithm.o
+HalfByteAsASCII                                   ./src/uint8_16_to_string.o
+Lcd3310_Char                                      ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/algorithm.o
+Lcd3310_ClearCenter                               ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/algorithm.o
+Lcd3310_GotoXY                                    ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/algorithm.o
+Lcd3310_Index                                     ./src/lcd/lcd_nokia_3310_frm_brunql.o
+Lcd3310_Init                                      ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+Lcd3310_InitFill                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+Lcd3310_InitializeDisplay                         ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
+Lcd3310_Send                                      ./src/lcd/lcd_nokia_3310_frm_brunql.o
+Lcd3310_String_P                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/algorithm.o
+Lcd3310_UInt16AsText                              ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+Lcd3310_UInt8AsText                               ./src/lcd/lcd_nokia_3310_frm_brunql.o
+Lcd3310_UpdateDisplayInfo                         ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
+LedDriver_Init                                    ./src/led_driver.o
+                                                  ./src/main.o
+LedDriver_SwitchLeds                              ./src/led_driver.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/algorithm.o
+Menu_EnterClick                                   ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
+SaveResultsAlgorithm                              ./src/algorithm.o
+                                                  ./src/main.o
+SetZeroAlgorithm                                  ./src/algorithm.o
+                                                  ./src/main.o
+StartADC                                          ./src/algorithm.o
+UInt16ToString                                    ./src/uint8_16_to_string.o
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+UInt8ToString                                     ./src/uint8_16_to_string.o
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+__addsf3                                          /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+__bad_interrupt                                   /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__bss_end                                         /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+__bss_start                                       /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+__clz_tab                                         /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clz.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+__clzsi2                                          /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+__data_end                                        /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+__data_load_start                                 /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+__data_start                                      /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+__divsf3                                          /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  ./src/algorithm.o
+__do_clear_bss                                    /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clear_bss.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clz.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fpcmp_parts_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_unpack_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_pack_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_thenan_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+                                                  ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/uint8_16_to_string.o
+                                                  ./src/main.o
+                                                  ./src/led_driver.o
+                                                  ./src/debug.o
+                                                  ./src/algorithm.o
+__do_copy_data                                    /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_copy_data.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clz.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fpcmp_parts_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_unpack_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_pack_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_clzsi2.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_thenan_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+                                                  ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/uint8_16_to_string.o
+                                                  ./src/main.o
+                                                  ./src/led_driver.o
+                                                  ./src/debug.o
+                                                  ./src/algorithm.o
+__epilogue_restores__                             /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_epilogue.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+__fixsfsi                                         /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+                                                  ./src/algorithm.o
+__fixunssfsi                                      /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+__floatsisf                                       /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                                                  ./src/algorithm.o
+__floatunsisf                                     /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+__fpcmp_parts_f                                   /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fpcmp_parts_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+__gesf2                                           /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+__gtsf2                                           /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+__heap_end                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__init                                            /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__ltsf2                                           /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+__mulsf3                                          /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/algorithm.o
+__pack_f                                          /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_pack_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+__prologue_saves__                                /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_prologue.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_usi_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_si_to_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+__stack                                           /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__subsf3                                          /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_fixunssfsi.o)
+__thenan_sf                                       /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_thenan_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+__udivmodhi4                                      /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_udivmodhi4.o)
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                                                  ./src/algorithm.o
+__unpack_f                                        /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_unpack_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_sf_to_si.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_lt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_ge_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_gt_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_div_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_mul_sf.o)
+                                                  /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_addsub_sf.o)
+__vector_1                                        ./src/main.o
+                                                  /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_10                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_11                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_12                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_13                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_14                                       ./src/main.o
+                                                  /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_15                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_16                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_17                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_18                                       /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_2                                        ./src/main.o
+                                                  /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_3                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_4                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_5                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_6                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_7                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_8                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_9                                        /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vector_default                                  /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+__vectors                                         /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+_exit                                             /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+adc_data                                          ./src/main.o
+                                                  ./src/algorithm.o
+adc_res_first                                     ./src/algorithm.o
+adc_res_second                                    ./src/algorithm.o
+atomic_temp                                       ./src/main.o
+back_setup                                        ./src/lcd/lcd_nokia_menu.o
+calibration                                       ./src/lcd/lcd_nokia_menu.o
+callibrate                                        ./src/lcd/lcd_nokia_menu.o
+coefs                                             ./src/algorithm.o
+exit                                              /usr/lib/gcc/avr/4.3.3/avr4/libgcc.a(_exit.o)
+                                                  /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+flags                                             ./src/main.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+go                                                ./src/lcd/lcd_nokia_menu.o
+hex2dec_result                                    ./src/algorithm.o
+init_menu_now                                     ./src/lcd/lcd_nokia_menu.o
+lcd_first_str                                     ./src/lcd/lcd_nokia_menu.o
+led_show_codes                                    ./src/algorithm.o
+main                                              ./src/main.o
+                                                  /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr4/crtm8.o
+max_diff                                          ./src/algorithm.o
+menu_before_now                                   ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
+menu_now                                          ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
+menu_now_atomic                                   ./src/lcd/lcd_nokia_menu.o
+pstr_complete                                     ./src/algorithm.o
+pstr_please_wait                                  ./src/algorithm.o
+readme                                            ./src/lcd/lcd_nokia_menu.o
+result                                            ./src/algorithm.o
+                                                  ./src/lcd/lcd_nokia_menu.o
+results                                           ./src/lcd/lcd_nokia_menu.o
+set_zero                                          ./src/lcd/lcd_nokia_menu.o
+setup                                             ./src/lcd/lcd_nokia_menu.o
+text                                              ./src/lcd/lcd_nokia_menu.o
+to_string_result                                  ./src/uint8_16_to_string.o
+                                                  ./src/lcd/lcd_nokia_3310_frm_brunql.o

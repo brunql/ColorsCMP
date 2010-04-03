@@ -1,0 +1,1 @@
+sudo avrdude -pm8 -cusbasp -Uflash:w:Debug/ColorsCMP_EclipseEdition.hex:a
