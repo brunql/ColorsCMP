@@ -11,13 +11,13 @@
 
 // TQFP mega8 pinout
 /* VDD      +3,3V */            /* lcd_1 */
-/* SCLK */ #define SPI_CLK_PIN  /* lcd_2 */    _BV(PB5)
-/* SDIN */ #define SPI_MOSI_PIN /* lcd_3 */    _BV(PB3)
-/* D/C  */ #define LCD_DC_PIN   /* lcd_4 */    _BV(PB2)
-/* SCE  */ #define LCD_CE_PIN   /* lcd_5 */    _BV(PB1)
+/* SCLK */ #define SPI_CLK_PIN  /* lcd_2 */    _BV(PB7)
+/* SDIN */ #define SPI_MOSI_PIN /* lcd_3 */    _BV(PB5)
+/* D/C  */ #define LCD_DC_PIN   /* lcd_4 */    _BV(PB4)
+/* SCE  */ #define LCD_CE_PIN   /* lcd_5 */    _BV(PB3)
 /* GND  */                      /* lcd_6 */
 /* VOUT    4,7uF to GND */      /* lcd_7 */
-/* RES  */ #define LCD_RST_PIN  /* lcd_8 */    _BV(PB0)
+/* RES  */ #define LCD_RST_PIN  /* lcd_8 */    _BV(PB2)
 
 #define LCD_CONTRAST		30
 #define LCD_X_RES			84
@@ -52,7 +52,7 @@
 	{ 														\
 		OUT = pgm_read_byte									\
 			(												\
-				(uint16_t) *FontLookup + 					\
+				(uint16_t) FontLookup + 					\
 				(uint16_t)((uint16_t)(CHAR)-0x20) * 5 + 	\
 				(uint16_t)(INDEX)							\
 			) << 1;											\

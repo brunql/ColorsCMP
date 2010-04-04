@@ -11,12 +11,12 @@
 #include <avr/io.h>
 #include "main.h"
 
-#define LED_DR_PORT 	(PORTC)
-#define LED_DR_DDR 		(DDRC)
+#define LED_DR_PORT 	(PORTA)
+#define LED_DR_DDR 		(DDRA)
 
-#define DATA_PIN 	_BV(PC4)
-#define CLK_PIN 	_BV(PC3)
-#define LATCH_PIN	_BV(PC2)
+#define DATA_PIN 	_BV(PA2)
+#define CLK_PIN 	_BV(PA3)
+#define LATCH_PIN	_BV(PA4)
 
 #define LATCH_UP			{ LED_DR_PORT |= LATCH_PIN;	}
 #define LATCH_DOWN			{ LED_DR_PORT &= (unsigned char) ~LATCH_PIN;	}

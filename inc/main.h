@@ -26,7 +26,7 @@ extern uint16_t show_me_2;
 //#define USING_RU_FONTS
 
 #define	UPDATE_DISPLAY_FLAG		_BV(0)
-#define ENCODER_BTN_CLICK_FLAG	_BV(1)
+#define JOYSTICK_CENTER_CLICK_FLAG	_BV(1)
 #define	ANIMATION_NEXT_FLAG		_BV(2)
 //#define ENC_INT_NEED_TO_ENABLE_FLAG _BV(2)
 #define	ANIMATION_PREV_FLAG		_BV(3)
@@ -44,34 +44,25 @@ extern uint16_t show_me_2;
 #define 	ADC_CONVERT_IN_PROGRESS()	( ADCSRA & _BV(ADSC) )
 
 //================================================//
-//== 			 Encoder defines				==//
-#define    	ENC_LEFT_PA      		_BV(PD4)
-#define 	ENC_BUTTON_PE			_BV(PD3) /* INT1 */
-#define 	ENC_RIGHT_PB			_BV(PD2) /* INT0 */
-#define 	ENC_LEFT_OR_RIGHT		(PIND & ENC_LEFT_PA)
-// Using this defines in anti brrrrzzzrrr contacts.
-#define 	ENC_LEFT_UP				(PIND & ENC_LEFT_PA)
-#define 	ENC_RIGHT_UP			(PIND & ENC_RIGHT_PB)
-#define 	ENC_BUTTON_UP			(PIND & ENC_BUTTON_PE)
-//==     	ENC_PB      PD2 == EXT_INT0 		==//	
-//==  		ENC_PC  	connected to GND		==//
-//==  		ENC_PD  	connected to GND		==//
-//==     	ENC_PE      PD3 == EXT_INT1 		==//
+// 				Joystick defines
+#define JDDR	DDRC
+#define JPORT	PORTC
+#define JPIN	PINC
+#define J_RU	_BV(PC4) /* RIGHT UP */
+#define J_LU	_BV(PC7) /* LEFT UP */
+#define J_RD	_BV(PC5) /* RIGHT DOWN */
+#define J_LD	_BV(PC6) /* LEFT DOWN */
 
-//== 	ON/OFF interrupts from encoder			==//
-#define ENC_INT_TURN		INT0
-#define ENC_INT_BUTTON		INT1
-#define ENC_INT_ENABLE() 	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GIFR = _BV(INTF0); GICR |= _BV(ENC_INT_TURN) | _BV(ENC_INT_BUTTON); } }
-#define ENC_INT_DISABLE()	{ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR &=  (unsigned char)~(_BV(ENC_INT_TURN) | _BV(ENC_INT_BUTTON)); }};
-//
-//#define ENC_INT_BUTTON_ENABLE() {ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR |= _BV(ENC_INT_BUTTON); }};
-//#define ENC_INT_BUTTON_DISABLE() {ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR &=  (unsigned char)~(_BV(ENC_INT_BUTTON)); }};
-//
-//#define ENC_INT_TURN_ENABLE() {ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR |= _BV(ENC_INT_TURN); }};
-//#define ENC_INT_TURN_DISABLE() {ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR &=  (unsigned char)~(_BV(ENC_INT_TURN)); }};
-//#define ENC_INT_CHECK()		( GICR & (_BV(INT0) | _BV(INT1)) )
+#define J_CENTER 	0x00
+#define J_UP		0x01
+#define J_DOWN		0x02
+#define J_LEFT		0x03
+#define J_RIGHT		0x04
 
-
+#define JOYSTICK_INT	INT1
+#define JOYSTICK_INT_ENABLE() 	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GIFR = _BV(INTF0); GICR |= _BV(JOYSTICK_INT); 	}}
+#define JOYSTICK_INT_DISABLE() 	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR &=  (unsigned char)~(_BV(JOYSTICK_INT)); 	}}
+#define JOYSTICK_INT_CHECK()	( PIND & _BV(PD3) )
 //================================================//
 
 #define ENABLE 1

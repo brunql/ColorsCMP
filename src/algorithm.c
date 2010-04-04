@@ -161,7 +161,7 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	 *
 	 * 	 Complete!
 	 */
-	ENC_INT_DISABLE();
+	JOYSTICK_INT_DISABLE();
 
 	Lcd3310_ClearCenter();
 	Lcd3310_GotoXY(0, 1);
@@ -196,5 +196,5 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	Lcd3310_GotoXY(2, 5);
 	Lcd3310_String_P( pstr_complete, BLACK_TEXT_ON_WHITE );
 	_delay_ms(500); // show complete and wait 0.5 sec
-	ENC_INT_ENABLE();
+	JOYSTICK_INT_ENABLE();
 }

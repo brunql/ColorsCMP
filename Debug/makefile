@@ -63,7 +63,7 @@ all: ColorsCMP_EclipseEdition.elf secondary-outputs
 ColorsCMP_EclipseEdition.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C++ Linker'
-	avr-g++ -Wl,-Map,ColorsCMP_EclipseEdition.map,--cref -mmcu=atmega8 -o"ColorsCMP_EclipseEdition.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-g++ -Wl,-Map,ColorsCMP_EclipseEdition.map,--cref -mmcu=atmega32 -o"ColorsCMP_EclipseEdition.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -81,7 +81,7 @@ ColorsCMP_EclipseEdition.hex: ColorsCMP_EclipseEdition.elf
 
 sizedummy: ColorsCMP_EclipseEdition.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega8 ColorsCMP_EclipseEdition.elf
+	-avr-size --format=avr --mcu=atmega32 ColorsCMP_EclipseEdition.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 

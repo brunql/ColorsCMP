@@ -29,55 +29,101 @@ volatile int16_t adc_data = 0x00;
 
 
 
-//================================================//
-//== 			Encoder turning					==//
-ISR(INT0_vect)
-{
-	uint8_t encoder_state = ENC_LEFT_OR_RIGHT;
-
-	_delay_ms(2);	// anti brrrrzzzzrr
-
-	GIFR = _BV(INTF0); // ,kz t,fysq dhjn!!!
-
-	if(ENC_RIGHT_UP){ return; } // else make some stuff
-
-	// after brrrzzzzrrrrrr, lets check where should i move menu?
-    if (encoder_state){
-		menu_now = menu_now->prev;
-
-		#ifdef ANIMATION_SWITCH_MENU_ITEMS
-			FLAGS_SWITCH_ON( ANIMATION_PREV_FLAG );
-		#else
-			menu_before_now--;
-			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
-		#endif
-	}else{
-		menu_now = menu_now->next;
-
-		#ifdef ANIMATION_SWITCH_MENU_ITEMS
-			FLAGS_SWITCH_ON( ANIMATION_NEXT_FLAG );
-		#else
-			menu_before_now++;
-			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
-		#endif
-	}
-}
-
 
 //================================================//
-//== 			Encoder button click			==//
+//== 				Joystick click				==//
 ISR(INT1_vect)
 {
-	_delay_ms(4);	// anti brrrrzzzzrr
+#ifndef ANIMATION_SWITCH_MENU_ITEMS
+	menu_before_now = 0x80;
+#endif
+	_delay_ms(2);	// anti brrrrzzzzrr
 
-	GIFR = _BV(INTF1); // ,kz t,fysq dhjn!!!
+	GIFR = _BV(INTF1); // kill int1 flag
 
-	if(ENC_BUTTON_UP){ return; } // else make some stuff
+	uint8_t result = J_CENTER;
 
-	#ifndef ANIMATION_SWITCH_MENU_ITEMS
-		menu_before_now = 0x80;
-	#endif
-	FLAGS_SWITCH_ON(ENCODER_BTN_CLICK_FLAG);
+//	Lcd3310_ClearCenter();
+//	Lcd3310_GotoXY(0, 0);
+
+	while(1){
+		uint8_t jpin_h = (JPIN & 0xf0);
+
+		if( jpin_h == (uint8_t)(J_LU | J_RU) ){
+			if( jpin_h == (uint8_t)(J_LU | J_RU) ){
+				if( jpin_h == (uint8_t)(J_LU | J_RU) ){
+					result = J_DOWN;
+//					Lcd3310_Char('d', BLACK_TEXT_ON_WHITE);
+					break;
+				}
+			}
+		}
+
+		if( jpin_h == (uint8_t)(J_LD | J_RD) ){
+			if( jpin_h == (uint8_t)(J_LD | J_RD) ){
+				if( jpin_h == (uint8_t)(J_LD | J_RD) ){
+					result = J_UP;
+//					Lcd3310_Char('u', BLACK_TEXT_ON_WHITE);
+					break;
+				}
+			}
+		}
+
+		if( jpin_h == (uint8_t)(J_LU | J_LD) ){
+			if( jpin_h == (uint8_t)(J_LU | J_LD) ){
+				if( jpin_h == (uint8_t)(J_LU | J_LD) ){
+					result = J_RIGHT;
+//					Lcd3310_Char('r', BLACK_TEXT_ON_WHITE);
+					break;
+				}
+			}
+
+		}
+		if( jpin_h == (uint8_t)(J_RU | J_RD) ){
+			if( jpin_h == (uint8_t)(J_RU | J_RD) ){
+				if( jpin_h == (uint8_t)(J_RU | J_RD) ){
+					result = J_LEFT;
+//					Lcd3310_Char('l', BLACK_TEXT_ON_WHITE);
+					break;
+				}
+			}
+
+		}
+		if( jpin_h == (uint8_t)(J_RU | J_LU | J_RD | J_LD) ){
+			if( jpin_h == (uint8_t)(J_RU | J_LU | J_RD | J_LD) ){
+				if( jpin_h == (uint8_t)(J_RU | J_LU | J_RD | J_LD) ){
+					result = J_CENTER;
+					//Lcd3310_Char('c', BLACK_TEXT_ON_WHITE);
+					break;
+				}
+			}
+		}
+	}
+
+	if (JOYSTICK_INT_CHECK()) { return; } // interrupt on brrzzzz then pulling up joystick, so not need to do smth
+
+	if (result == J_CENTER){
+		FLAGS_SWITCH_ON(JOYSTICK_CENTER_CLICK_FLAG);
+	}else if(result == J_UP){
+		menu_now = menu_now->prev;
+
+#ifdef ANIMATION_SWITCH_MENU_ITEMS
+		FLAGS_SWITCH_ON( ANIMATION_PREV_FLAG );
+#else
+		menu_before_now--;
+		FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
+#endif
+	}else if(result == J_DOWN){
+		menu_now = menu_now->next;
+
+#ifdef ANIMATION_SWITCH_MENU_ITEMS
+		FLAGS_SWITCH_ON( ANIMATION_NEXT_FLAG );
+#else
+		menu_before_now++;
+		FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
+#endif
+	}
+
 }
 
 //ISR( TIMER2_OVF_vect )
@@ -106,8 +152,12 @@ int main(void)
     PORTC=0x00;
     DDRC=0x00;
 
-    PORTD=0x00; //_BV(PD2) | _BV(PD3) | _BV(PD4); // pull up encoder
+    PORTD= _BV(PD3); // pull up joystick center button
     DDRD=0x00;
+
+
+    JPORT = (uint8_t)(J_RU | J_LU | J_RD | J_LD);
+    JDDR &= (uint8_t)~(J_RU | J_LU | J_RD | J_LD);
 
     //TEST_PIN_DDR_INIT();
 
@@ -150,8 +200,8 @@ int main(void)
 			Lcd3310_UpdateDisplayInfo();
 		}
 
-		IF_FLAG_ON( ENCODER_BTN_CLICK_FLAG ){
-			FLAGS_SWITCH_OFF( ENCODER_BTN_CLICK_FLAG );
+		IF_FLAG_ON( JOYSTICK_CENTER_CLICK_FLAG ){
+			FLAGS_SWITCH_OFF( JOYSTICK_CENTER_CLICK_FLAG );
 
 			Menu_EnterClick();
 
