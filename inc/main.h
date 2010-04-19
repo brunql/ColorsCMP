@@ -21,8 +21,8 @@ extern uint16_t show_me_2;
 #define	DELAY_SHOW_SPLASH 1000
 
 
-//#define ANIMATION_SWITCH_MENU_ITEMS
-//#define LCD_IMAGES
+#define ANIMATION_SWITCH_MENU_ITEMS
+#define LCD_IMAGES
 //#define USING_RU_FONTS
 
 #define	UPDATE_DISPLAY_FLAG		_BV(0)

@@ -72,6 +72,7 @@ void StartADC(FirstOrSecond first)
 
 	ADCSRA |= _BV( ADSC ); // start conversation
 	while( ADC_CONVERT_IN_PROGRESS() ) {  };
+	adc_data = ADC;
 	//result in adc_data
 }
 
@@ -197,4 +198,6 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	Lcd3310_String_P( pstr_complete, BLACK_TEXT_ON_WHITE );
 	_delay_ms(500); // show complete and wait 0.5 sec
 	JOYSTICK_INT_ENABLE();
+//	LedDriver_SwitchLeds(GREEN_LEDS);
+//	(evalMe)(0);
 }

@@ -130,13 +130,6 @@ ISR(INT1_vect)
 //{
 //}
 
-//================================================//
-//==					ADC						==//
-ISR(ADC_vect)
-{
-	adc_data = ADC;
-}
-
 
 
 int main(void)
@@ -165,7 +158,6 @@ int main(void)
 
     // External Interrupt(s) initialization
     MCUCR= _BV(ISC11) | _BV(ISC01); // fall
-    //// --Any logical change on INT1 and INT0 generates an interrupt request.--
     GICR = _BV(INT0) | _BV(INT1); // int1 int0 enable interrupts
 
 //    ASSR = 0x00;
@@ -179,11 +171,13 @@ int main(void)
 
     // Init ADC
 	ADMUX = 0x00; //_BV(ADLAR); // ADC0, result in ADC
-	ADCSRA = _BV(ADEN) | _BV(ADIE) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0) ; // XTAL / 16;
+	ADCSRA = _BV(ADEN) /*| _BV(ADIE)*/ | _BV(ADPS2)  | _BV(ADPS1) | _BV(ADPS0); // XTAL / 16;
 
 
 	LedDriver_Init();
 	Lcd3310_InitializeDisplay(DELAY_SHOW_SPLASH);
+
+
 
 	DEBUG_PRINT_CHAR( 0x02 );
 
@@ -194,6 +188,7 @@ int main(void)
 	DEBUG_PRINT_CHAR( 0x00 );
 
    	for(;;){
+   		//LedDriver_SwitchLeds(0xf0f0);
 
 		IF_FLAG_ON( UPDATE_DISPLAY_FLAG ){
 			FLAGS_SWITCH_OFF( UPDATE_DISPLAY_FLAG );

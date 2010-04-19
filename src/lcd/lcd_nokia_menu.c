@@ -131,7 +131,7 @@ void Lcd3310_AnimationSwitchMenuItems(char is_turn_left)
 
 	for(uint8_t j=0; j<8; j++){
 		for(uint8_t i=0; i < number_of_elements_in_menu_now; i++){
-#			ifdef (LCD_IMAGES)
+#			ifdef LCD_IMAGES
 				Lcd3310_GotoXY(0, i + 1);// show menu from (i+1) line because first line filled with '_COLORS_'
 #			else
 				Lcd3310_GotoXY(0, i); // no images at top
