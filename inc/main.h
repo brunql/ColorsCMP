@@ -11,7 +11,8 @@
 
 #include "led_driver.h"
 
-extern unsigned char flags;
+extern uint16_t flags;
+extern uint16_t atomic_flags;
 extern unsigned char atomic_temp;
 
 extern uint16_t show_me_1;
@@ -25,20 +26,23 @@ extern uint16_t show_me_2;
 #define LCD_IMAGES
 //#define USING_RU_FONTS
 
-#define	UPDATE_DISPLAY_FLAG		_BV(0)
+#define	UPDATE_DISPLAY_FLAG			_BV(0)
 #define JOYSTICK_CENTER_CLICK_FLAG	_BV(1)
-#define	ANIMATION_NEXT_FLAG		_BV(2)
-//#define ENC_INT_NEED_TO_ENABLE_FLAG _BV(2)
-#define	ANIMATION_PREV_FLAG		_BV(3)
-//#define ENC_RIGHT_UP_FLAG		_BV(3)
-#define	ADC_RESULT_FLAG			_BV(4)
-#define	ADC_CALIBRATE_FLAG		_BV(5)
-#define ADC_SET_ZERO			_BV(6)
+#define	ANIMATION_NEXT_FLAG			_BV(2)
+#define	ANIMATION_PREV_FLAG			_BV(3)
+#define	ADC_RESULT_FLAG				_BV(4)
+#define	ADC_CALIBRATE_FLAG			_BV(5)
+#define ADC_SET_ZERO				_BV(6)
+#define SNAKE_PLAYING_NOW_FLAG 		_BV(7)
+#define SNAKE_START_GAME_FLAG 		_BV(8)
+#define SNAKE_STOP_GAME_FLAG 		_BV(9)
+
  
 
-#define		IF_FLAG_ON(x)		ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { atomic_temp = flags; } if(atomic_temp & (x))
-#define 	FLAGS_SWITCH_ON(x)	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { flags |= (x); } }
-#define 	FLAGS_SWITCH_OFF(x)	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { flags &= (unsigned char)~(x); } }
+#define		IF_FLAG_ON(x)		ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { atomic_flags = flags; } if(atomic_flags & ((uint16_t)(x)))
+#define		IF_FLAG_OFF(x)		ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { atomic_flags = flags; } if(!(atomic_flags & ((uint16_t)(x))))
+#define 	FLAGS_SWITCH_ON(x)	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { flags |= (uint16_t)(x); } }
+#define 	FLAGS_SWITCH_OFF(x)	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { flags &= (uint16_t)~(x); } }
 
 
 #define 	ADC_CONVERT_IN_PROGRESS()	( ADCSRA & _BV(ADSC) )
@@ -71,7 +75,7 @@ extern uint16_t show_me_2;
 #	define NULL 0
 #endif
 
-#define TIM2_INIT() 					{ TCCR2 = (_BV(CS22) /*| _BV(CS21)*/ /*| _BV(CS20)*/ ); } /* clk / 1024 */
+#define TIM2_INIT() 					{ TCCR2 = (_BV(CS22) | _BV(CS21) /*| _BV(CS20)*/ ); } /* clk / 1024 */
 #define TIM2_CLR_COUNTER_AND_OVF_ON()	{ TCNT2 = 0x00; TIMSK |= _BV(TOIE2); }		/* tim2 interrupt enable */
 #define TIM2_OVF_OFF() 					{ TIMSK &= (unsigned char)~_BV(TOIE2); }	/* tim2 interrupt disable */
 

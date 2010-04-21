@@ -12,8 +12,8 @@
 // calibration coefficients
 double coefs[2][3] = {
 //		 R  G  B
-		{0, 0, 0},
-		{0, 0, 0}
+		{1, 0, 1},
+		{1, 0, 1}
 };
 
 // ADC values then leds off, NOT USED NOW

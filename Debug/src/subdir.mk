@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/SnakeGame.c \
 ../src/algorithm.c \
 ../src/debug.c \
 ../src/led_driver.c \
@@ -11,6 +12,7 @@ C_SRCS += \
 ../src/uint8_16_to_string.c 
 
 OBJS += \
+./src/SnakeGame.o \
 ./src/algorithm.o \
 ./src/debug.o \
 ./src/led_driver.o \
@@ -18,6 +20,7 @@ OBJS += \
 ./src/uint8_16_to_string.o 
 
 C_DEPS += \
+./src/SnakeGame.d \
 ./src/algorithm.d \
 ./src/debug.d \
 ./src/led_driver.d \

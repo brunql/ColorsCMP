@@ -23,7 +23,9 @@ enum {
 	go_cmd,
 	results_cmd,
 	calibration_cmd,
-	set_zero_cmd
+	set_zero_cmd,
+	snake_start_cmd,
+	snake_results_cmd
 };
 
 #ifdef LCD_FIRST_STR
@@ -34,13 +36,15 @@ enum {
 struct menu_item *menu_now_atomic;
 
 //					name = 	{ CMD, 		main_menu, 	sub_menu, 	next, 	previous, string }; 
-struct menu_item go = {go_cmd, NULL, &results, &setup, &readme, 								"// Start    //"};
-	struct menu_item results = {results_cmd, &go, NULL, &results, &results, 					"// Results: //"};
-struct menu_item setup = {ENTER_MENU_CMD, NULL, &calibration, &readme, &go, 					"// Setup    //"};
-	struct menu_item calibration = {calibration_cmd, &setup, NULL, &set_zero, &back_setup, 		"//Callibrate//"};
-	struct menu_item set_zero = {set_zero_cmd, &setup, NULL, &back_setup, &calibration, 		"// Set zero //"};
-	struct menu_item back_setup = {BACK_CMD, &setup, NULL, &calibration, &set_zero, 			"// Back     //"};
-struct menu_item readme = {ENTER_MENU_CMD, NULL, &text, &go, &setup, 							"// Readme   //"};
+struct menu_item go = {go_cmd, NULL, &results, &snake_start, &readme, 								"// Start    //"};
+	struct menu_item results = {results_cmd, &go, NULL, &results, &results, 							"// Results: //"};
+struct menu_item snake_start = {snake_start_cmd, NULL, &snake_results, &setup, &go, 				"// Snake    //"};
+	struct menu_item snake_results = {snake_results_cmd, &go, NULL, &snake_results, &snake_results, 	"//   Snake  //"};
+struct menu_item setup = {ENTER_MENU_CMD, NULL, &calibration, &readme, &snake_start, 					"// Setup    //"};
+	struct menu_item calibration = {calibration_cmd, &setup, NULL, &set_zero, &back_setup, 				"//Callibrate//"};
+	struct menu_item set_zero = {set_zero_cmd, &setup, NULL, &back_setup, &calibration, 				"// Set zero //"};
+	struct menu_item back_setup = {BACK_CMD, &setup, NULL, &calibration, &set_zero, 					"// Back     //"};
+struct menu_item readme = {ENTER_MENU_CMD, NULL, &text, &go, &setup, 								"// Readme   //"};
 	struct menu_item text = {BACK_CMD, &readme, NULL, &text, &text, "[ Programmer:][   brunql   ][    (at)    ][  gmail.com ]"};
 
 void Menu_EnterClick(void)
@@ -73,6 +77,14 @@ void Menu_EnterClick(void)
 		case set_zero_cmd:
 			FLAGS_SWITCH_ON( ADC_SET_ZERO );
 			break;
+
+		case snake_start_cmd:
+			FLAGS_SWITCH_ON( SNAKE_START_GAME_FLAG );
+			goto enter_menu_label;
+
+		case snake_results_cmd:
+			FLAGS_SWITCH_ON( SNAKE_STOP_GAME_FLAG );
+			goto back_menu_label;
 	}
 }
 

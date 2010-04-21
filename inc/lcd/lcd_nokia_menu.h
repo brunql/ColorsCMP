@@ -49,6 +49,8 @@ extern struct menu_item * menu_now;
 
 extern struct menu_item go;
 	extern struct menu_item results;
+extern struct menu_item snake_start;
+	extern struct menu_item snake_results;
 extern struct menu_item setup;
 	extern struct menu_item calibration;
 	extern struct menu_item set_zero;

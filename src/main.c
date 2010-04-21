@@ -17,14 +17,16 @@
 #include "led_driver.h"
 #include "lcd/lcd_nokia_menu.h"
 #include "algorithm.h" // define extern variables for main problem
-
+#include "SnakeGame.h"
 #include "debug.h"	// define here DEBUG to 1 for enable debug mode
 
-uint8_t flags = 0x00;
+uint16_t flags = 0x0000;
+uint16_t atomic_flags = 0x0000;
 uint8_t atomic_temp = 0x00;
 
-volatile int16_t adc_data = 0x00;
-
+volatile int16_t adc_data = 0x0000;
+uint8_t timer_delay = 0x00;
+uint8_t timer_ticks_to_get_present = SPEED_TICKS_TO_GET_PRESENT;
 
 
 
@@ -122,13 +124,31 @@ ISR(INT1_vect)
 		menu_before_now++;
 		FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 #endif
+	}else if(result == J_LEFT){
+		IF_FLAG_ON( SNAKE_PLAYING_NOW_FLAG ){
+			SnakeGame_TurnLeft();
+		}
+	}else if(result == J_RIGHT){
+		IF_FLAG_ON( SNAKE_PLAYING_NOW_FLAG ){
+			SnakeGame_TurnRight();
+		}
 	}
 
 }
 
-//ISR( TIMER2_OVF_vect )
-//{
-//}
+//================================================//
+//== 			Game timer ticks				==//
+ISR(TIMER2_OVF_vect)
+{
+	if(!timer_delay--){
+		if(!timer_ticks_to_get_present--){
+			timer_ticks_to_get_present = SPEED_TICKS_TO_GET_PRESENT;
+			SnakeGame_AddmeUpdateXY();
+		}
+		SnakeGame_TakeNextStep();
+		timer_delay = step_speed;
+	}
+}
 
 
 
@@ -167,7 +187,7 @@ int main(void)
 //    TCCR2 = 0x00;
 //    TIMSK = 0x00;
 
-	//TIM2_INIT(); // see defines.h for details
+	TIM2_INIT(); // see defines.h for details
 
     // Init ADC
 	ADMUX = 0x00; //_BV(ADLAR); // ADC0, result in ADC
@@ -188,11 +208,12 @@ int main(void)
 	DEBUG_PRINT_CHAR( 0x00 );
 
    	for(;;){
-   		//LedDriver_SwitchLeds(0xf0f0);
 
 		IF_FLAG_ON( UPDATE_DISPLAY_FLAG ){
 			FLAGS_SWITCH_OFF( UPDATE_DISPLAY_FLAG );
-			Lcd3310_UpdateDisplayInfo();
+			IF_FLAG_OFF( SNAKE_PLAYING_NOW_FLAG ){
+				Lcd3310_UpdateDisplayInfo();
+			}
 		}
 
 		IF_FLAG_ON( JOYSTICK_CENTER_CLICK_FLAG ){
@@ -230,15 +251,33 @@ int main(void)
 	#ifdef ANIMATION_SWITCH_MENU_ITEMS
 		IF_FLAG_ON( ANIMATION_NEXT_FLAG ){
 			FLAGS_SWITCH_OFF( ANIMATION_NEXT_FLAG );
-			Lcd3310_AnimationSwitchMenuItems(1);
+			if(menu_now != &results && menu_now != &snake_results){
+				Lcd3310_AnimationSwitchMenuItems(1);
+			}
 			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 		}
 		IF_FLAG_ON( ANIMATION_PREV_FLAG ){
 			FLAGS_SWITCH_OFF( ANIMATION_PREV_FLAG );
-			Lcd3310_AnimationSwitchMenuItems(0);
+			if(menu_now != &results && menu_now != &snake_results){
+				Lcd3310_AnimationSwitchMenuItems(0);
+			}
 			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 		}
 	#endif
+
+		IF_FLAG_ON( SNAKE_START_GAME_FLAG ){
+			FLAGS_SWITCH_OFF( SNAKE_START_GAME_FLAG );
+			SnakeGame_Start();
+			TIM2_CLR_COUNTER_AND_OVF_ON();
+			FLAGS_SWITCH_ON( SNAKE_PLAYING_NOW_FLAG );
+		}
+		IF_FLAG_ON( SNAKE_STOP_GAME_FLAG ){
+			FLAGS_SWITCH_OFF( SNAKE_STOP_GAME_FLAG );
+			TIM2_OVF_OFF();
+			SnakeGame_Stop();
+			FLAGS_SWITCH_OFF( SNAKE_PLAYING_NOW_FLAG );
+		}
+
 	}
 
 	return ZERO;

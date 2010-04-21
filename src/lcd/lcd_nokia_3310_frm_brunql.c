@@ -21,7 +21,6 @@ uint16_t Lcd3310_Index = 0x00;
 
 
 
-void Lcd3310_Send (char data, LcdCmdData cd);
 void Lcd3310_InitFill (void);
 
 

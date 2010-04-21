@@ -23,7 +23,8 @@
 #define LCD_X_RES			84
 #define LCD_Y_RES			48
 #define LCD_XY_RES			/*(LCD_X_RES * LCD_Y_RES / 8)==*/ 504
-#define LCD_CENTER_RES			/*(LCD_X_RES * LCD_Y_RES / 8) - 84 * 2==*/ 336
+//#define LCD_CENTER_RES			/*(LCD_X_RES * LCD_Y_RES / 8) - 84 * 2==*/ 336
+#define LCD_CENTER_RES			/*(LCD_X_RES * LCD_Y_RES / 8) - 84==*/ 420 /* without brunql@gmail.com */
 
 
 #ifdef USING_RU_FONTS
@@ -62,6 +63,7 @@
 typedef enum { LCD_CMD, LCD_DATA } LcdCmdData;
 typedef enum { BLACK_TEXT_ON_WHITE, WHITE_TEXT_ON_BLACK } WhiteOrBlackText;
 
+extern void Lcd3310_Send (char data, LcdCmdData cd);
 extern void Lcd3310_Init(uint16_t show_init_data_delay_ms);
 extern void Lcd3310_Char(unsigned char ch, WhiteOrBlackText is_invert_colors);
 extern void Lcd3310_String_P(PGM_P str_ptr, WhiteOrBlackText is_invert_colors);
