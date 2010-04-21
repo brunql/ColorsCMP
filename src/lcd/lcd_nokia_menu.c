@@ -39,7 +39,7 @@ struct menu_item *menu_now_atomic;
 struct menu_item go = {go_cmd, NULL, &results, &snake_start, &readme, 								"// Start    //"};
 	struct menu_item results = {results_cmd, &go, NULL, &results, &results, 							"// Results: //"};
 struct menu_item snake_start = {snake_start_cmd, NULL, &snake_results, &setup, &go, 				"// Snake    //"};
-	struct menu_item snake_results = {snake_results_cmd, &go, NULL, &snake_results, &snake_results, 	"//   Snake  //"};
+	struct menu_item snake_results = {snake_results_cmd, &snake_start, NULL, &snake_results, &snake_results, 	"//   Snake  //"};
 struct menu_item setup = {ENTER_MENU_CMD, NULL, &calibration, &readme, &snake_start, 					"// Setup    //"};
 	struct menu_item calibration = {calibration_cmd, &setup, NULL, &set_zero, &back_setup, 				"//Callibrate//"};
 	struct menu_item set_zero = {set_zero_cmd, &setup, NULL, &back_setup, &calibration, 				"// Set zero //"};
