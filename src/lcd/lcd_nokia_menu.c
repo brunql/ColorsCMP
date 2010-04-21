@@ -41,9 +41,9 @@ struct menu_item go = {go_cmd, NULL, &results, &snake_start, &readme, 								"/
 struct menu_item snake_start = {snake_start_cmd, NULL, &snake_results, &setup, &go, 				"// Snake    //"};
 	struct menu_item snake_results = {snake_results_cmd, &snake_start, NULL, &snake_results, &snake_results, 	"//   Snake  //"};
 struct menu_item setup = {ENTER_MENU_CMD, NULL, &calibration, &readme, &snake_start, 					"// Setup    //"};
-	struct menu_item calibration = {calibration_cmd, &setup, NULL, &set_zero, &back_setup, 				"//Callibrate//"};
-	struct menu_item set_zero = {set_zero_cmd, &setup, NULL, &back_setup, &calibration, 				"// Set zero //"};
-	struct menu_item back_setup = {BACK_CMD, &setup, NULL, &calibration, &set_zero, 					"// Back     //"};
+	struct menu_item set_zero = {set_zero_cmd, &setup, NULL, &calibration, &back_setup, 				"// Set zero //"};
+	struct menu_item calibration = {calibration_cmd, &setup, NULL, &back_setup, &set_zero, 				"//Callibrate//"};
+	struct menu_item back_setup = {BACK_CMD, &setup, NULL, &set_zero, &calibration, 					"// Back     //"};
 struct menu_item readme = {ENTER_MENU_CMD, NULL, &text, &go, &setup, 								"// Readme   //"};
 	struct menu_item text = {BACK_CMD, &readme, NULL, &text, &text, "[ Programmer:][   brunql   ][    (at)    ][  gmail.com ]"};
 

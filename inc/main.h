@@ -18,6 +18,9 @@ extern unsigned char atomic_temp;
 extern uint16_t show_me_1;
 extern uint16_t show_me_2;
 
+extern uint8_t timer_delay;
+extern uint8_t timer_ticks_to_get_present;
+
 #define ZERO 0     
 #define	DELAY_SHOW_SPLASH 1000
 

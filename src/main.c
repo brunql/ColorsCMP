@@ -142,7 +142,7 @@ ISR(TIMER2_OVF_vect)
 {
 	if(!timer_delay--){
 		if(!timer_ticks_to_get_present--){
-			timer_ticks_to_get_present = SPEED_TICKS_TO_GET_PRESENT;
+			timer_ticks_to_get_present = get_present_speed;
 			SnakeGame_AddmeUpdateXY();
 		}
 		SnakeGame_TakeNextStep();
