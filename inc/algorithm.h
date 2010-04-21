@@ -38,7 +38,7 @@ typedef enum {
 #define ADC_MAX_VALUE 	0x3FF
 
 // Wait for foto-resistor in ms
-#define DELAY_BEFORE_START_ADC		2000
+#define DELAY_BEFORE_START_ADC		3000
 
 
 

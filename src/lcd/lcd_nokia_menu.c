@@ -232,7 +232,7 @@ void Lcd3310_UpdateDisplayInfo(void)
 		 * Result window:
 		 *
 		 * |    Results:  |
-		 * |   R   G   B  |
+		 * |   B   G   R  |
 		 * |1 *** *** *** |
 		 * |2 *** *** *** |
 		 * |% xx% xx% xx% |
@@ -240,7 +240,7 @@ void Lcd3310_UpdateDisplayInfo(void)
 		 *
 		 */
 
-		// |   R   G   B  |
+		// |   B   G   R  |
 		Lcd3310_GotoXY(3, 2);
 		Lcd3310_Char('R', BLACK_TEXT_ON_WHITE);
 		Lcd3310_GotoXY(7, 2);

@@ -9,6 +9,7 @@
 #include "algorithm.h"
 #include "lcd/lcd_nokia_menu.h"
 
+
 // calibration coefficients
 double coefs[2][3] = {
 //		 R  G  B
@@ -35,11 +36,11 @@ uint16_t led_show_codes[3] = {
 		RED_LEDS, GREEN_LEDS, BLUE_LEDS
 };
 
-volatile int16_t adc_res_first = 0x00;
-volatile int16_t adc_res_second = 0x00;
+volatile uint16_t adc_res_first = 0x0000;
+volatile uint16_t adc_res_second = 0x0000;
 
 
-PGM_P pstr_complete = "Done!";
+PGM_P pstr_complete = "Complete!";
 PGM_P pstr_please_wait = "Please wait...";
 
 
@@ -96,14 +97,56 @@ void GetValuesFromADC(void) // with simple averaging
 }
 
 
-void ADC_255_Times(void)
+void ADC_64_Times(void)
 {
 	//===================================//
-	adc_res_first = 0x00;
-	adc_res_second = 0x00;
+//	uint32_t adc_256_first = 0x00000000;
+//	uint32_t adc_256_second = 0x00000000;
+	adc_res_first = 0x0000;
+	adc_res_second = 0x0000;
+//	PORTC &= (uint8_t)~_BV(PC3);
+//	DDRC |= _BV(PC3);
 	for(uint8_t i=0; i < 0xff;  i++){
+//		if(PORTC & _BV(PC3))
+//			PORTC &= (uint8_t)~_BV(PC3);
+//		else
+//			PORTC |= _BV(PC3);
 		GetValuesFromADC();
+//		adc_256_first += (uint32_t) adc_res_first;
+//		adc_256_second += (uint32_t) adc_res_second;
 	}
+//	PORTC &= (uint8_t)~_BV(PC3);
+//	GetValuesFromADC();
+//	adc_256_first += (uint32_t) adc_res_first;
+//	adc_256_second += (uint32_t) adc_res_second;
+//	adc_256_first >>= 8; // divide 256
+//	adc_256_second >>= 8; // divide 256
+//
+//	adc_res_first = (uint16_t) adc_256_first;
+//	adc_res_second = (uint16_t) adc_256_second;
+
+//	uint16_t adc_64_first = 0x0000;
+//	uint16_t adc_64_second = 0x0000;
+//	adc_res_first = 0x0000;
+//	adc_res_second = 0x0000;
+////	PORTC &= (uint8_t)~_BV(PC3);
+////	DDRC |= _BV(PC3);
+//	for(uint8_t i=0; i < 0x40;  i++){
+////		if(PORTC & _BV(PC3))
+////			PORTC &= (uint8_t)~_BV(PC3);
+////		else
+////			PORTC |= _BV(PC3);
+//		GetValuesFromADC();
+//		adc_64_first += (uint16_t) adc_res_first;
+//		adc_64_second += (uint16_t) adc_res_second;
+//	}
+////	PORTC &= (uint8_t)~_BV(PC3);
+//	adc_64_first /= 64; // divide 64
+//	adc_64_second /= 64; // divide 64
+//
+//	adc_res_first = (uint16_t) adc_64_first;
+//	adc_res_second = (uint16_t) adc_64_second;
+
 	//===================================//
 }
 
@@ -173,6 +216,10 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 		Lcd3310_GotoXY(1, 3);
 	}
 	Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
+
+	LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
+	_delay_ms( DELAY_BEFORE_START_ADC );
+
 	for(uint8_t color=0; color < 3; color++){
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
 		if(evalMe == SetZeroAlgorithm){
@@ -182,7 +229,7 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 		}
 		_delay_ms( DELAY_BEFORE_START_ADC );
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
-		ADC_255_Times();
+		ADC_64_Times();
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
 
 		// Start Algorithm
