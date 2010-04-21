@@ -79,42 +79,59 @@ void StartADC(FirstOrSecond first)
 
 void GetValuesFromADC(void) // with simple averaging
 {
-	uint16_t temp_val = adc_res_first;
-	StartADC( FIRST );
-	if(temp_val){
-		adc_res_first = (adc_data + temp_val) / 2;
-	}else{
-		adc_res_first = adc_data;
-	}
+	// 1:
+//	uint16_t temp_val = adc_res_first;
+//	StartADC( FIRST );
+//	if(temp_val){
+//		adc_res_first = (adc_data + temp_val) / 2;
+//	}else{
+//		adc_res_first = adc_data;
+//	}
+//
+//	temp_val = adc_res_second;
+//	StartADC( SECOND );
+//	if(temp_val){
+//		adc_res_second = (adc_data + temp_val) / 2;
+//	}else{
+//		adc_res_second = adc_data;
+//	}
 
-	temp_val = adc_res_second;
+	// 2:
+	StartADC( FIRST );
+	adc_res_first = adc_data;
+
 	StartADC( SECOND );
-	if(temp_val){
-		adc_res_second = (adc_data + temp_val) / 2;
-	}else{
-		adc_res_second = adc_data;
-	}
+	adc_res_second = adc_data;
 }
 
 
 void ADC_64_Times(void)
 {
 	//===================================//
+	// 1:
+//	adc_res_first = 0x0000;
+//	adc_res_second = 0x0000;
+//	for(uint8_t i=0; i < 0xff;  i++){
+//		GetValuesFromADC();
+//	}
+
+
+	// 2:
 //	uint32_t adc_256_first = 0x00000000;
 //	uint32_t adc_256_second = 0x00000000;
-	adc_res_first = 0x0000;
-	adc_res_second = 0x0000;
+//	adc_res_first = 0x0000;
+//	adc_res_second = 0x0000;
 //	PORTC &= (uint8_t)~_BV(PC3);
 //	DDRC |= _BV(PC3);
-	for(uint8_t i=0; i < 0xff;  i++){
+//	for(uint8_t i=0; i < 0xff;  i++){
 //		if(PORTC & _BV(PC3))
 //			PORTC &= (uint8_t)~_BV(PC3);
 //		else
 //			PORTC |= _BV(PC3);
-		GetValuesFromADC();
+//		GetValuesFromADC();
 //		adc_256_first += (uint32_t) adc_res_first;
 //		adc_256_second += (uint32_t) adc_res_second;
-	}
+//	}
 //	PORTC &= (uint8_t)~_BV(PC3);
 //	GetValuesFromADC();
 //	adc_256_first += (uint32_t) adc_res_first;
@@ -125,27 +142,22 @@ void ADC_64_Times(void)
 //	adc_res_first = (uint16_t) adc_256_first;
 //	adc_res_second = (uint16_t) adc_256_second;
 
-//	uint16_t adc_64_first = 0x0000;
-//	uint16_t adc_64_second = 0x0000;
-//	adc_res_first = 0x0000;
-//	adc_res_second = 0x0000;
-////	PORTC &= (uint8_t)~_BV(PC3);
-////	DDRC |= _BV(PC3);
-//	for(uint8_t i=0; i < 0x40;  i++){
-////		if(PORTC & _BV(PC3))
-////			PORTC &= (uint8_t)~_BV(PC3);
-////		else
-////			PORTC |= _BV(PC3);
-//		GetValuesFromADC();
-//		adc_64_first += (uint16_t) adc_res_first;
-//		adc_64_second += (uint16_t) adc_res_second;
-//	}
-////	PORTC &= (uint8_t)~_BV(PC3);
-//	adc_64_first /= 64; // divide 64
-//	adc_64_second /= 64; // divide 64
-//
-//	adc_res_first = (uint16_t) adc_64_first;
-//	adc_res_second = (uint16_t) adc_64_second;
+
+	// 3:
+	uint16_t adc_64_first = 0x0000;
+	uint16_t adc_64_second = 0x0000;
+	adc_res_first = 0x0000;
+	adc_res_second = 0x0000;
+	for(uint8_t i=0; i < 0x40;  i++){
+		GetValuesFromADC();
+		adc_64_first += (uint16_t) adc_res_first;
+		adc_64_second += (uint16_t) adc_res_second;
+	}
+	adc_64_first >>= 6; // divide 64
+	adc_64_second >>= 6; // divide 64
+
+	adc_res_first = (uint16_t) adc_64_first;
+	adc_res_second = (uint16_t) adc_64_second;
 
 	//===================================//
 }
