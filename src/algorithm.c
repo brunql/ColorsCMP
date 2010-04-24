@@ -11,10 +11,9 @@
 
 
 // calibration coefficients
-double coefs[2][3] = {
-//		 R  G  B
-		{1, 0, 1},
-		{1, 0, 1}
+double coefs[3] = {
+//		R  G  B
+		1, 1, 1
 };
 
 // ADC values then leds off, NOT USED NOW
@@ -24,9 +23,8 @@ double coefs[2][3] = {
 uint16_t max_diff = ADC_MAX_VALUE;
 
 // Algorithm results, show this in menu
-uint16_t result[3][3] = {
+uint16_t result[2][3] = {
 //		 R  G  B
-		{0, 0, 0},
 		{0, 0, 0},
 		{0, 0, 0}
 };
@@ -36,15 +34,14 @@ uint16_t led_show_codes[3] = {
 		RED_LEDS, GREEN_LEDS, BLUE_LEDS
 };
 
-volatile uint16_t adc_res_first = 0x0000;
-volatile uint16_t adc_res_second = 0x0000;
+volatile uint16_t adc_data = 0x0000;
 
 
 PGM_P pstr_complete = "Complete!";
 PGM_P pstr_please_wait = "Please wait...";
 
 
-void hex2dec_result(uint16_t hex, uint8_t result_index, uint8_t result_color)
+uint16_t hex2dec_result(uint16_t hex)
 {
 	uint8_t res2, res1, res0;
 	res0 =  hex % 10;
@@ -53,59 +50,49 @@ void hex2dec_result(uint16_t hex, uint8_t result_index, uint8_t result_color)
 	hex /= 10;
 	res2 = hex % 10;
 
-	uint16_t dec_result = (res2 << 8) | (res1 << 4)| res0;
-
-	result[result_index][result_color] = dec_result;
+	return (res2 << 8) | (res1 << 4)| res0;
 }
 
 
-void StartADC(FirstOrSecond first)
-{
-	if (first){
-		ADMUX &= (unsigned char) ~ _BV(MUX0);
-	}else{ // second
-		ADMUX |= _BV(MUX0);
-	}
+//void StartADC(void)
+//{
+//	// delay for stabilisation on ADC pin (charge intro reference capacitor)
+//	// TODO: NEED TEST!
+//	ADCSRA |= _BV( ADSC ); // start conversation
+//	while( ADC_CONVERT_IN_PROGRESS() ) {  };
+//	adc_data = ADC;
+//	//result in adc_data
+//}
 
-	// delay for stabilisation on ADC pin (charge intro reference capacitor)
-	// TODO: NEED TEST!
-	_delay_us(50);
-
-	ADCSRA |= _BV( ADSC ); // start conversation
-	while( ADC_CONVERT_IN_PROGRESS() ) {  };
-	adc_data = ADC;
-	//result in adc_data
-}
-
-void GetValuesFromADC(void) // with simple averaging
-{
-	// 1:
-//	uint16_t temp_val = adc_res_first;
-//	StartADC( FIRST );
-//	if(temp_val){
-//		adc_res_first = (adc_data + temp_val) / 2;
-//	}else{
-//		adc_res_first = adc_data;
-//	}
+//void GetValuesFromADC(void) // with simple averaging
+//{
+//	// 1:
+////	uint16_t temp_val = adc_res_first;
+////	StartADC( FIRST );
+////	if(temp_val){
+////		adc_res_first = (adc_data + temp_val) / 2;
+////	}else{
+////		adc_res_first = adc_data;
+////	}
+////
+////	temp_val = adc_res_second;
+////	StartADC( SECOND );
+////	if(temp_val){
+////		adc_res_second = (adc_data + temp_val) / 2;
+////	}else{
+////		adc_res_second = adc_data;
+////	}
 //
-//	temp_val = adc_res_second;
-//	StartADC( SECOND );
-//	if(temp_val){
-//		adc_res_second = (adc_data + temp_val) / 2;
-//	}else{
-//		adc_res_second = adc_data;
-//	}
-
-	// 2,3:
-//	StartADC( FIRST );
-//	adc_res_first = adc_data;
-
-	StartADC( SECOND );
-	adc_res_second = adc_data;
-}
+//	// 2,3:
+////	StartADC( FIRST );
+////	adc_res_first = adc_data;
+//
+//	StartADC( );
+//	adc_res_second = adc_data;
+//}
 
 
-void ADC_64_Times(void)
+void ADC_N_Times(void)
 {
 	//===================================//
 	// 1: 256 ADCs without summing and dividing
@@ -158,68 +145,55 @@ void ADC_64_Times(void)
 
 
 
-	// 4: using only second sensor and 256 A to D convertions
-	uint32_t adc_256_second = 0x00000000;
-	adc_res_second = 0x0000;
-	PORTC |= _BV(PC3);
-	DDRC  |= _BV(PC3);
-	for(uint8_t i=0; i < 0xff;  i++){
-		GetValuesFromADC();
-		adc_256_second += (uint32_t) adc_res_second;
-	}
-	PORTC &= (uint8_t)~_BV(PC3);
-	GetValuesFromADC();
-	adc_256_second += (uint32_t) adc_res_second;
-	adc_256_second >>= 8; // divide 256
+	// 4: diff ADC inputs
+	uint32_t adc_256_times = 0x00000000;
+	adc_data = 0x0000;
 
-	adc_res_second = (uint16_t) adc_256_second;
+	PORTC |= _BV(PC3);
+	DDRC  |= _BV(PC3);	// test pin up
+
+	uint8_t i=0;
+	do{
+		ADCSRA |= _BV( ADSC ); // start conversation
+		while( ADC_CONVERT_IN_PROGRESS() ) {  };
+		adc_data = ADC;
+		if((uint16_t)adc_data & (uint16_t)0x0200){
+			adc_data = (uint16_t)0x03ff - adc_data + 1;
+		}
+
+		adc_256_times += (uint32_t) adc_data;
+	} while( ++i != 0 ); // loop 256 times
+
+	PORTC &= (uint8_t)~_BV(PC3); // test pin down
+
+	adc_256_times >>= 8; // divide 256
+	adc_data = (uint16_t) adc_256_times;
 	//===================================//
 }
 
 
 void CalibrationAlgorithm(uint8_t color)
 {
-#ifdef EVP_ALGORITM
-	// divide results by 4
-//	uint8_t adc_res_first_8 = (uint8_t)((uint16_t)adc_res_first >> 2);
-//	uint8_t adc_res_second_8 = (uint8_t)((uint16_t)adc_res_second >> 2);
-//	coefs[FIRST][color] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_res_first_8;
-//	coefs[SECOND][color] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_res_second_8;
-//
-	coefs[FIRST][color] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_res_first;
-	coefs[SECOND][color] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_res_second;
-
-#else
-	coefs[FIRST][color] = 1;
-	coefs[SECOND][color] = (double)adc_res_first / adc_res_second;
-#endif
+	coefs[color] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_data;
 }
 
 void SetZeroAlgorithm(uint8_t color)
 {
-//	zero[FIRST] = adc_res_first;
-//	zero[SECOND] = adc_res_second;
-
 	max_diff = ADC_MAX_VALUE;// -  ((adc_res_first < adc_res_second) ? adc_res_first : adc_res_second);
+	Lcd3310_GotoXY(0,4);
+	Lcd3310_Char('K', BLACK_TEXT_ON_WHITE);
+	coefs[0] = 1;
+	coefs[1] = 1;
+	coefs[2] = 1;
 }
 
 void SaveResultsAlgorithm(uint8_t color)
 {
+	int16_t result_coef_diff = (int16_t)((double)(((double)adc_data) * coefs[color]));
+	uint16_t diff_percent = 0xf1;//result_coef_diff * 100 / max_diff;//result[PERCENT][color] = DIFF(result1, result2);// * 100 / max_diff;
 
-	// divide results by 4
-//	uint8_t adc_res_first_8 = (uint8_t)((uint16_t)adc_res_first >> 2);
-//	uint8_t adc_res_second_8 = (uint8_t)((uint16_t)adc_res_second >> 2);
-//
-//	int16_t result1 = (int16_t)((double)(((double)adc_res_first_8) * coefs[FIRST][color]));
-//	int16_t result2 = (int16_t)((double)(((double)adc_res_second_8) * coefs[SECOND][color]));
-
-	int16_t result1 = (int16_t)((double)(((double)adc_res_first) * coefs[FIRST][color]));
-	int16_t result2 = (int16_t)((double)(((double)adc_res_second) * coefs[SECOND][color]));
-	uint16_t diff_percent = DIFF(result1, result2) * 100 / max_diff;
-
-	hex2dec_result(result1, FIRST, color); // result[FIRST][color] = result1;
-	hex2dec_result(result2, SECOND, color); //result[SECOND][color] = result2;
-	hex2dec_result(diff_percent, PERCENT, color); //result[PERCENT][color] = DIFF(result1, result2);// * 100 / max_diff;
+	result[DIFF_INDX][color] = result_coef_diff;//hex2dec_result(result_coef_diff);
+	result[PERCENT][color] = diff_percent;//hex2dec_result(diff_percent);
 }
 
 void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
@@ -255,7 +229,7 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 		}
 		_delay_ms( DELAY_BEFORE_START_ADC );
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
-		ADC_64_Times();
+		ADC_N_Times();
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
 
 		// Start Algorithm

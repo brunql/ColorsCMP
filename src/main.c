@@ -24,7 +24,7 @@ uint16_t flags = 0x0000;
 uint16_t atomic_flags = 0x0000;
 uint8_t atomic_temp = 0x00;
 
-volatile int16_t adc_data = 0x0000;
+
 uint8_t timer_delay = 0x00;
 uint8_t timer_ticks_to_get_present = SPEED_TICKS_TO_GET_PRESENT;
 
@@ -34,96 +34,96 @@ uint8_t data = ALL_LS;
 uint16_t time = 0;//(30000) / (count + 1);
 
 
-
-void EvalCoefs_2(void)
-{
-	ADMUX = _BV(ADLAR) | _BV(MUX3) | _BV(MUX0); // 10 x diff
-
-
-	Lcd3310_GotoXY(0, 0);
-	for(uint8_t i=0; i<10; i++){
-		count = i * 10;
-		PORTC |= _BV(PC3);
-		__asm__ volatile ("nop"::);
-		PORTC &= (uint8_t)~_BV(PC3);
-
-
-		time = (uint16_t)(0xFFFF) / (count + 1); // = time_us / (6 * count + 6); 6 * 0xFFFF us
-		time <<= 1;
-		for(uint16_t pwm=0; pwm < time; pwm++)
-		{
-			LedDriver_Switch_3_Leds(data);
-			for(uint8_t down=0; down < count; down++)
-				LedDriver_Switch_3_Leds(0b000);
-		}
-		////		_delay_ms(2);
-		//		if( count++ > 20 ) count = 3;
-
-		//		PORTC |= _BV(PC3);
-		ADCSRA |= _BV( ADSC ); // start conversation
-		while( ADC_CONVERT_IN_PROGRESS() ) {  // 112us
-			LedDriver_Switch_3_Leds(data);
-			for(uint8_t down=0; down < count; down++)
-				LedDriver_Switch_3_Leds(0b000);
-		}
-		adc_data = ADCH;
-		coefs_2[i] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_data;
-
-		Lcd3310_UInt8AsText(count, WHITE_TEXT_ON_BLACK);
-		Lcd3310_Char(':', WHITE_TEXT_ON_BLACK);
-		Lcd3310_UInt16AsText_3Chars((uint16_t)adc_data, WHITE_TEXT_ON_BLACK);
-		//Lcd3310_Char(' ', WHITE_TEXT_ON_BLACK);
-		//		PORTC &= (uint8_t)~_BV(PC3);
-		//		if(count == 0xff){
-		//			_delay_ms(2);
-		//		}
-	}
-}
-
-void ALG_Start(void)
-{
-	ADMUX = _BV(ADLAR) | _BV(MUX3) | _BV(MUX0); // 1 x diff
-
-	Lcd3310_GotoXY(0, 0);
-	for(uint8_t i=0; i<10; i++){
-		count = i * 10;
-
-		PORTC |= _BV(PC3);
-		__asm__ volatile ("nop"::);
-		PORTC &= (uint8_t)~_BV(PC3);
-
-
-		time = (uint16_t)(0xFFFF) / (count + 1); // = time_us / (6 * count + 6); time_us = 6 * 0xFFFF us
-		time <<= 1; // *2
-		for(uint16_t pwm=0; pwm < time; pwm++)
-		{
-			LedDriver_Switch_3_Leds(data);
-			for(uint8_t down=0; down < count; down++)
-				LedDriver_Switch_3_Leds(0b000);
-		}
-		////		_delay_ms(2);
-		//		if( count++ > 20 ) count = 3;
-
-		//		PORTC |= _BV(PC3);
-		ADCSRA |= _BV( ADSC ); // start conversation
-		while( ADC_CONVERT_IN_PROGRESS() ) {  // 112us
-			LedDriver_Switch_3_Leds(data);
-			for(uint8_t down=0; down < count; down++)
-				LedDriver_Switch_3_Leds(0b000);
-		}
-		adc_data = ADCH;
-		adc_data = (uint16_t)((double) adc_data * coefs_2[i]);
-
-		Lcd3310_UInt8AsText(count, WHITE_TEXT_ON_BLACK);
-		Lcd3310_Char(':', WHITE_TEXT_ON_BLACK);
-		Lcd3310_UInt16AsText_3Chars((uint16_t)adc_data, WHITE_TEXT_ON_BLACK);
-		//Lcd3310_Char(' ', WHITE_TEXT_ON_BLACK);
-		//		PORTC &= (uint8_t)~_BV(PC3);
-		//		if(count == 0xff){
-		//			_delay_ms(2);
-		//		}
-	}
-}
+//
+//void EvalCoefs_2(void)
+//{
+//	ADMUX = _BV(ADLAR) | _BV(MUX3) | _BV(MUX0); // 10 x diff
+//
+//
+//	Lcd3310_GotoXY(0, 0);
+//	for(uint8_t i=0; i<10; i++){
+//		count = i * 10;
+//		PORTC |= _BV(PC3);
+//		__asm__ volatile ("nop"::);
+//		PORTC &= (uint8_t)~_BV(PC3);
+//
+//
+//		time = (uint16_t)(0xFFFF) / (count + 1); // = time_us / (6 * count + 6); 6 * 0xFFFF us
+//		time <<= 1;
+//		for(uint16_t pwm=0; pwm < time; pwm++)
+//		{
+//			LedDriver_Switch_3_Leds(data);
+//			for(uint8_t down=0; down < count; down++)
+//				LedDriver_Switch_3_Leds(0b000);
+//		}
+//		////		_delay_ms(2);
+//		//		if( count++ > 20 ) count = 3;
+//
+//		//		PORTC |= _BV(PC3);
+//		ADCSRA |= _BV( ADSC ); // start conversation
+//		while( ADC_CONVERT_IN_PROGRESS() ) {  // 112us
+//			LedDriver_Switch_3_Leds(data);
+//			for(uint8_t down=0; down < count; down++)
+//				LedDriver_Switch_3_Leds(0b000);
+//		}
+//		adc_data = ADCH;
+//		coefs_2[i] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_data;
+//
+//		Lcd3310_UInt8AsText(count, WHITE_TEXT_ON_BLACK);
+//		Lcd3310_Char(':', WHITE_TEXT_ON_BLACK);
+//		Lcd3310_UInt16AsText_3Chars((uint16_t)adc_data, WHITE_TEXT_ON_BLACK);
+//		//Lcd3310_Char(' ', WHITE_TEXT_ON_BLACK);
+//		//		PORTC &= (uint8_t)~_BV(PC3);
+//		//		if(count == 0xff){
+//		//			_delay_ms(2);
+//		//		}
+//	}
+//}
+//
+//void ALG_Start(void)
+//{
+//	ADMUX = _BV(ADLAR) | _BV(MUX3) | _BV(MUX0); // 1 x diff
+//
+//	Lcd3310_GotoXY(0, 0);
+//	for(uint8_t i=0; i<10; i++){
+//		count = i * 10;
+//
+//		PORTC |= _BV(PC3);
+//		__asm__ volatile ("nop"::);
+//		PORTC &= (uint8_t)~_BV(PC3);
+//
+//
+//		time = (uint16_t)(0xFFFF) / (count + 1); // = time_us / (6 * count + 6); time_us = 6 * 0xFFFF us
+//		time <<= 1; // *2
+//		for(uint16_t pwm=0; pwm < time; pwm++)
+//		{
+//			LedDriver_Switch_3_Leds(data);
+//			for(uint8_t down=0; down < count; down++)
+//				LedDriver_Switch_3_Leds(0b000);
+//		}
+//		////		_delay_ms(2);
+//		//		if( count++ > 20 ) count = 3;
+//
+//		//		PORTC |= _BV(PC3);
+//		ADCSRA |= _BV( ADSC ); // start conversation
+//		while( ADC_CONVERT_IN_PROGRESS() ) {  // 112us
+//			LedDriver_Switch_3_Leds(data);
+//			for(uint8_t down=0; down < count; down++)
+//				LedDriver_Switch_3_Leds(0b000);
+//		}
+//		adc_data = ADCH;
+//		adc_data = (uint16_t)((double) adc_data * coefs_2[i]);
+//
+//		Lcd3310_UInt8AsText(count, WHITE_TEXT_ON_BLACK);
+//		Lcd3310_Char(':', WHITE_TEXT_ON_BLACK);
+//		Lcd3310_UInt16AsText_3Chars((uint16_t)adc_data, WHITE_TEXT_ON_BLACK);
+//		//Lcd3310_Char(' ', WHITE_TEXT_ON_BLACK);
+//		//		PORTC &= (uint8_t)~_BV(PC3);
+//		//		if(count == 0xff){
+//		//			_delay_ms(2);
+//		//		}
+//	}
+//}
 
 
 
@@ -204,7 +204,7 @@ ISR(INT1_vect)
 	if (result == J_CENTER){
 		FLAGS_SWITCH_ON(JOYSTICK_CENTER_CLICK_FLAG);
 
-		ALG_Start();
+//		ALG_Start();
 
 	}else if(result == J_UP){
 		menu_now = menu_now->prev;
@@ -229,14 +229,14 @@ ISR(INT1_vect)
 			SnakeGame_TurnLeft();
 		}
 
-		EvalCoefs_2();
+//		EvalCoefs_2();
 
 	}else if(result == J_RIGHT){
 		IF_FLAG_ON( SNAKE_PLAYING_NOW_FLAG ){
 			SnakeGame_TurnRight();
 		}
 
-		ALG_Start();
+//		ALG_Start();
 	}
 
 }
@@ -298,10 +298,13 @@ int main(void)
 	TIM2_INIT(); // see defines.h for details
 
     // Init ADC
-	ADMUX = 0x00; //_BV(ADLAR); // ADC0, result in ADC
+	//ADMUX = 0x00; //_BV(ADLAR); // ADC0, result in ADC
+	ADMUX =  _BV(MUX3) | _BV(MUX0); // diff * 10; result in ADC
 	ADCSRA = _BV(ADEN) /*| _BV(ADIE)*/ | _BV(ADPS2)  | _BV(ADPS1) | _BV(ADPS0); // XTAL / 16;
 
-	ADCSRA |= _BV( ADSC ); // start conversation
+	ADCSRA |= _BV( ADSC ); // start conversation first times
+	while(ADC_CONVERT_IN_PROGRESS()){}
+	adc_data = ADC;
 
 	LedDriver_Init();
 	Lcd3310_InitializeDisplay(DELAY_SHOW_SPLASH);
@@ -322,11 +325,12 @@ int main(void)
 
 	DDRC  |= _BV(PC3);
 	ADMUX = _BV(MUX3) | _BV(MUX0); //  ADC = 10 x |ADC0 - ADC1|;  0x000 == 0; 0x3FF = -1;  0x1FF = 512; 0x200 = -512;
-
-
-	for(;;){
-
-	}
+//	ADMUX = _BV(MUX4);
+//
+//
+//	for(;;){
+//
+//	}
 
 
    	for(;;){

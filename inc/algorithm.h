@@ -30,21 +30,25 @@ typedef enum {
 #ifndef SECOND
 #	define SECOND 	1
 #endif
+
+#ifndef DIFF_INDX
+#	define DIFF_INDX	0
+#endif
 #ifndef PERCENT
-#	define PERCENT	2
+#	define PERCENT	1
 #endif
 
 // using for eval coefs
 #define ADC_MAX_VALUE 	0x3FF
 
 // Wait for foto-resistor in ms
-#define DELAY_BEFORE_START_ADC		3000
+#define DELAY_BEFORE_START_ADC		1000
 
 
 
-extern volatile int16_t adc_data;
-extern uint16_t result[3][3];
-extern double coefs[2][3];
+extern volatile uint16_t adc_data;
+extern uint16_t result[2][3];
+extern double coefs[3];
 extern uint16_t zero[2];
 
 extern void CalibrationAlgorithm(uint8_t color);
