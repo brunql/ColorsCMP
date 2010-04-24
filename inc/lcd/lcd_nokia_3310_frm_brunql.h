@@ -71,4 +71,5 @@ extern void Lcd3310_String_P_anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBla
 extern void Lcd3310_GotoXY(uint16_t x, uint16_t y);
 extern void Lcd3310_ClearCenter(void);
 extern void Lcd3310_UInt8AsText(uint8_t ch, WhiteOrBlackText is_invert_colors);
+extern void Lcd3310_UInt16AsText_3Chars(uint16_t i, WhiteOrBlackText is_invert_colors);
 extern void Lcd3310_UInt16AsText(uint16_t i, WhiteOrBlackText is_invert_colors);

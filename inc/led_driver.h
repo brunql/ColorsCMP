@@ -29,6 +29,12 @@
 #define GREEN_LEDS		0x0048
 #define BLUE_LEDS		0x0024
 
+
+#define RED_LS  	(0b001)
+#define GREEN_LS  	(0b100)
+#define BLUE_LS  	(0b010)
+#define ALL_LS		(RED_LS | GREEN_LS | BLUE_LS)
+
 #define LED_FIRST_RED		((uint16_t)1<<8)
 #define LED_FIRST_GREEN		((uint16_t)1<<9)
 #define LED_FIRST_BLUE		((uint16_t)1<<10)
@@ -42,6 +48,7 @@
 extern void LedDriver_Init(void);
 extern void LedDriver_SwitchLeds(uint16_t);
 extern void LedDriver_PWM(uint8_t pwm, uint16_t leds);
+extern void LedDriver_Switch_3_Leds(uint8_t data);
 
 
 #endif

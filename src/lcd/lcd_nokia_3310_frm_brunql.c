@@ -175,11 +175,21 @@ void Lcd3310_UInt8AsText(uint8_t ch, WhiteOrBlackText is_invert_colors)
 	}
 }
 
-void Lcd3310_UInt16AsText(uint16_t i, WhiteOrBlackText is_invert_colors)
+void Lcd3310_UInt16AsText_3Chars(uint16_t i, WhiteOrBlackText is_invert_colors)
 {
 	UInt16ToString( i );
 	// show three numbers and space
 	for(uint8_t count=1; count < 4; count++){ // 0x03ff - max value, show only '3ff'
+			Lcd3310_Char( to_string_result[count], is_invert_colors );
+	}
+	Lcd3310_Char( ' ', is_invert_colors );
+}
+
+void Lcd3310_UInt16AsText(uint16_t i, WhiteOrBlackText is_invert_colors)
+{
+	UInt16ToString( i );
+	// show three numbers and space
+	for(uint8_t count=0; count < 4; count++){ // 4 chars
 			Lcd3310_Char( to_string_result[count], is_invert_colors );
 	}
 	Lcd3310_Char( ' ', is_invert_colors );

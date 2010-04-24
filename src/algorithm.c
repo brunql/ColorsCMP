@@ -96,9 +96,9 @@ void GetValuesFromADC(void) // with simple averaging
 //		adc_res_second = adc_data;
 //	}
 
-	// 2:
-	StartADC( FIRST );
-	adc_res_first = adc_data;
+	// 2,3:
+//	StartADC( FIRST );
+//	adc_res_first = adc_data;
 
 	StartADC( SECOND );
 	adc_res_second = adc_data;
@@ -108,7 +108,7 @@ void GetValuesFromADC(void) // with simple averaging
 void ADC_64_Times(void)
 {
 	//===================================//
-	// 1:
+	// 1: 256 ADCs without summing and dividing
 //	adc_res_first = 0x0000;
 //	adc_res_second = 0x0000;
 //	for(uint8_t i=0; i < 0xff;  i++){
@@ -116,18 +116,33 @@ void ADC_64_Times(void)
 //	}
 
 
-	// 2:
+
+
+
+//	// 2: 64 ADCs
+//	uint16_t adc_64_first = 0x0000;
+//	uint16_t adc_64_second = 0x0000;
+//	adc_res_first = 0x0000;
+//	adc_res_second = 0x0000;
+//	for(uint8_t i=0; i < 0x40;  i++){
+//		GetValuesFromADC();
+//		adc_64_first += (uint16_t) adc_res_first;
+//		adc_64_second += (uint16_t) adc_res_second;
+//	}
+//	adc_64_first >>= 6; // divide 64
+//	adc_64_second >>= 6; // divide 64
+//
+//	adc_res_first = (uint16_t) adc_64_first;
+//	adc_res_second = (uint16_t) adc_64_second;
+
+	// 3: 256 ADCs
 //	uint32_t adc_256_first = 0x00000000;
 //	uint32_t adc_256_second = 0x00000000;
 //	adc_res_first = 0x0000;
 //	adc_res_second = 0x0000;
-//	PORTC &= (uint8_t)~_BV(PC3);
-//	DDRC |= _BV(PC3);
+//	PORTC |= _BV(PC3);
+//	DDRC  |= _BV(PC3);
 //	for(uint8_t i=0; i < 0xff;  i++){
-//		if(PORTC & _BV(PC3))
-//			PORTC &= (uint8_t)~_BV(PC3);
-//		else
-//			PORTC |= _BV(PC3);
 //		GetValuesFromADC();
 //		adc_256_first += (uint32_t) adc_res_first;
 //		adc_256_second += (uint32_t) adc_res_second;
@@ -138,27 +153,26 @@ void ADC_64_Times(void)
 //	adc_256_second += (uint32_t) adc_res_second;
 //	adc_256_first >>= 8; // divide 256
 //	adc_256_second >>= 8; // divide 256
-//
 //	adc_res_first = (uint16_t) adc_256_first;
 //	adc_res_second = (uint16_t) adc_256_second;
 
 
-	// 3:
-	uint16_t adc_64_first = 0x0000;
-	uint16_t adc_64_second = 0x0000;
-	adc_res_first = 0x0000;
+
+	// 4: using only second sensor and 256 A to D convertions
+	uint32_t adc_256_second = 0x00000000;
 	adc_res_second = 0x0000;
-	for(uint8_t i=0; i < 0x40;  i++){
+	PORTC |= _BV(PC3);
+	DDRC  |= _BV(PC3);
+	for(uint8_t i=0; i < 0xff;  i++){
 		GetValuesFromADC();
-		adc_64_first += (uint16_t) adc_res_first;
-		adc_64_second += (uint16_t) adc_res_second;
+		adc_256_second += (uint32_t) adc_res_second;
 	}
-	adc_64_first >>= 6; // divide 64
-	adc_64_second >>= 6; // divide 64
+	PORTC &= (uint8_t)~_BV(PC3);
+	GetValuesFromADC();
+	adc_256_second += (uint32_t) adc_res_second;
+	adc_256_second >>= 8; // divide 256
 
-	adc_res_first = (uint16_t) adc_64_first;
-	adc_res_second = (uint16_t) adc_64_second;
-
+	adc_res_second = (uint16_t) adc_256_second;
 	//===================================//
 }
 

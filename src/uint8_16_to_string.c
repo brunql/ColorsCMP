@@ -32,7 +32,7 @@ void UInt8ToString(uint8_t ch)
 
 void UInt16ToString(uint16_t i)
 {
-	//to_string_result[0] = HalfByteAsASCII( (i & 0xf000) >> 12 );
+	to_string_result[0] = HalfByteAsASCII( (i & 0xf000) >> 12 );
 	to_string_result[1] = HalfByteAsASCII( (i & 0x0f00) >> 8  );
 	to_string_result[2] = HalfByteAsASCII( (i & 0x00f0) >> 4  );
 	to_string_result[3] = HalfByteAsASCII(  i & 0x000f		);
