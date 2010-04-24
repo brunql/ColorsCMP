@@ -15,7 +15,7 @@ Archive member included because of file (symbol)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o)
                               /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o) (__subsf3)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mul_sf.o)
-                              ./src/algorithm.o (__mulsf3)
+                              ./src/lcd/lcd_nokia_3310_frm_brunql.o (__mulsf3)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_div_sf.o)
                               ./src/SnakeGame.o (__divsf3)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_gt_sf.o)
@@ -27,11 +27,11 @@ Archive member included because of file (symbol)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_si_to_sf.o)
                               ./src/SnakeGame.o (__floatsisf)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_sf_to_si.o)
-                              ./src/algorithm.o (__fixsfsi)
+                              /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o) (__fixsfsi)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_thenan_sf.o)
                               /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o) (__thenan_sf)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_usi_to_sf.o)
-                              ./src/algorithm.o (__floatunsisf)
+                              ./src/lcd/lcd_nokia_3310_frm_brunql.o (__floatunsisf)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_prologue.o)
                               /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o) (__prologue_saves__)
 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_epilogue.o)
@@ -180,7 +180,7 @@ LOAD /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x2d3e
+.text           0x00000000     0x2e0a
  *(.vectors)
  .vectors       0x00000000       0x54 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vectors
@@ -271,115 +271,115 @@ LOAD /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a
                 0x00000452                snakegame_InitSnake
                 0x00000754                SnakeGame_TakeNextStep
                 0x000006d8                SnakeGame_AddmeUpdateXY
- .text          0x0000094a      0x334 ./src/algorithm.o
-                0x00000a6a                SaveResultsAlgorithm
-                0x00000b42                ADC_LoadingAndEvalIt
-                0x00000a22                CalibrationAlgorithm
+ .text          0x0000094a      0x2dc ./src/algorithm.o
+                0x00000a3e                SaveResultsAlgorithm
+                0x00000af2                ADC_LoadingAndEvalIt
+                0x00000a24                CalibrationAlgorithm
                 0x0000094a                hex2dec_result
-                0x00000ae8                SetZeroAlgorithm
+                0x00000aa4                SetZeroAlgorithm
                 0x000009a8                ADC_N_Times
- .text          0x00000c7e        0x0 ./src/debug.o
- .text          0x00000c7e       0xbc ./src/led_driver.o
-                0x00000cf0                LedDriver_Init
-                0x00000d04                LedDriver_Switch_3_Leds
-                0x00000cba                LedDriver_PWM
-                0x00000c7e                LedDriver_SwitchLeds
- .text          0x00000d3a      0x510 ./src/main.o
-                0x000010a4                __vector_5
-                0x00000d3a                main
-                0x0000111c                __vector_2
- .text          0x0000124a       0xfe ./src/uint8_16_to_string.o
-                0x000012ae                UInt16ToString
-                0x00001264                UInt8ToString
-                0x0000124a                HalfByteAsASCII
- .text          0x00001348      0x574 ./src/lcd/lcd_nokia_3310_frm_brunql.o
-                0x000015ec                Lcd3310_GotoXY
-                0x00001818                Lcd3310_Send
-                0x0000186a                Lcd3310_UInt16AsText_3Chars
-                0x00001652                Lcd3310_InitFill
-                0x0000189c                Lcd3310_UInt8AsText
-                0x000013ea                Lcd3310_String_P
-                0x00001348                Lcd3310_Char
-                0x0000144e                Lcd3310_String_P_anime
-                0x0000182e                Lcd3310_UInt16AsText
-                0x0000161a                Lcd3310_ClearCenter
-                0x000016c4                Lcd3310_Init
- .text          0x000018bc      0x3f0 ./src/lcd/lcd_nokia_menu.o
-                0x000018bc                init_menu_now
-                0x00001bbc                Menu_EnterClick
-                0x000018ca                Lcd3310_UpdateDisplayInfo
-                0x00001a88                Lcd3310_AnimationSwitchMenuItems
-                0x00001ba6                Lcd3310_InitializeDisplay
- .text          0x00001cac        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodhi4.o)
- .text          0x00001cac        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodhi4.o)
- .text          0x00001cac        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
- .text          0x00001cac        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_copy_data.o)
- .text          0x00001cac        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clear_bss.o)
- .text          0x00001cac       0x58 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o)
-                0x00001cac                __fixunssfsi
- .text          0x00001d04      0x354 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o)
-                0x00001f9c                __subsf3
-                0x00001ffe                __addsf3
- .text          0x00002058      0x1f4 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mul_sf.o)
-                0x00002058                __mulsf3
- .text          0x0000224c      0x158 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_div_sf.o)
-                0x0000224c                __divsf3
- .text          0x000023a4       0x60 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_gt_sf.o)
-                0x000023a4                __gtsf2
- .text          0x00002404       0x60 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_ge_sf.o)
-                0x00002404                __gesf2
- .text          0x00002464       0x60 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_lt_sf.o)
-                0x00002464                __ltsf2
- .text          0x000024c4       0xbc /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_si_to_sf.o)
-                0x000024c4                __floatsisf
- .text          0x00002580       0xa8 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_sf_to_si.o)
-                0x00002580                __fixsfsi
- .text          0x00002628        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_thenan_sf.o)
- .text          0x00002628       0xf2 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_usi_to_sf.o)
-                0x00002628                __floatunsisf
- .text          0x0000271a        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_prologue.o)
- .text          0x0000271a        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_epilogue.o)
- .text          0x0000271a       0x9e /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clzsi2.o)
-                0x0000271a                __clzsi2
- .text          0x000027b8      0x1aa /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_pack_sf.o)
-                0x000027b8                __pack_f
- .text          0x00002962       0xf0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_unpack_sf.o)
-                0x00002962                __unpack_f
- .text          0x00002a52       0xb2 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fpcmp_parts_sf.o)
-                0x00002a52                __fpcmp_parts_f
- .text          0x00002b04        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clz.o)
- .text          0x00002b04       0xc2 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
-                0x00002ba0                rand_r
-                0x00002ba6                rand
-                0x00002bb0                srand
- .text          0x00002bc6        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mulsi3.o)
- .text          0x00002bc6        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodsi4.o)
- .text          0x00002bc6        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodsi4.o)
-                0x00002bc6                . = ALIGN (0x2)
+ .text          0x00000c26        0x0 ./src/debug.o
+ .text          0x00000c26       0xbc ./src/led_driver.o
+                0x00000c98                LedDriver_Init
+                0x00000cac                LedDriver_Switch_3_Leds
+                0x00000c62                LedDriver_PWM
+                0x00000c26                LedDriver_SwitchLeds
+ .text          0x00000ce2      0x5ea ./src/main.o
+                0x0000104c                __vector_5
+                0x00000ce2                main
+                0x000010c4                __vector_2
+ .text          0x000012cc       0xfe ./src/uint8_16_to_string.o
+                0x00001330                UInt16ToString
+                0x000012e6                UInt8ToString
+                0x000012cc                HalfByteAsASCII
+ .text          0x000013ca      0x574 ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                0x0000166e                Lcd3310_GotoXY
+                0x0000189a                Lcd3310_Send
+                0x000018ec                Lcd3310_UInt16AsText_3Chars
+                0x000016d4                Lcd3310_InitFill
+                0x0000191e                Lcd3310_UInt8AsText
+                0x0000146c                Lcd3310_String_P
+                0x000013ca                Lcd3310_Char
+                0x000014d0                Lcd3310_String_P_anime
+                0x000018b0                Lcd3310_UInt16AsText
+                0x0000169c                Lcd3310_ClearCenter
+                0x00001746                Lcd3310_Init
+ .text          0x0000193e      0x43a ./src/lcd/lcd_nokia_menu.o
+                0x0000193e                init_menu_now
+                0x00001c88                Menu_EnterClick
+                0x0000194c                Lcd3310_UpdateDisplayInfo
+                0x00001b54                Lcd3310_AnimationSwitchMenuItems
+                0x00001c72                Lcd3310_InitializeDisplay
+ .text          0x00001d78        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodhi4.o)
+ .text          0x00001d78        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodhi4.o)
+ .text          0x00001d78        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
+ .text          0x00001d78        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_copy_data.o)
+ .text          0x00001d78        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clear_bss.o)
+ .text          0x00001d78       0x58 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o)
+                0x00001d78                __fixunssfsi
+ .text          0x00001dd0      0x354 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o)
+                0x00002068                __subsf3
+                0x000020ca                __addsf3
+ .text          0x00002124      0x1f4 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mul_sf.o)
+                0x00002124                __mulsf3
+ .text          0x00002318      0x158 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_div_sf.o)
+                0x00002318                __divsf3
+ .text          0x00002470       0x60 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_gt_sf.o)
+                0x00002470                __gtsf2
+ .text          0x000024d0       0x60 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_ge_sf.o)
+                0x000024d0                __gesf2
+ .text          0x00002530       0x60 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_lt_sf.o)
+                0x00002530                __ltsf2
+ .text          0x00002590       0xbc /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_si_to_sf.o)
+                0x00002590                __floatsisf
+ .text          0x0000264c       0xa8 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_sf_to_si.o)
+                0x0000264c                __fixsfsi
+ .text          0x000026f4        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_thenan_sf.o)
+ .text          0x000026f4       0xf2 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_usi_to_sf.o)
+                0x000026f4                __floatunsisf
+ .text          0x000027e6        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_prologue.o)
+ .text          0x000027e6        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_epilogue.o)
+ .text          0x000027e6       0x9e /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clzsi2.o)
+                0x000027e6                __clzsi2
+ .text          0x00002884      0x1aa /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_pack_sf.o)
+                0x00002884                __pack_f
+ .text          0x00002a2e       0xf0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_unpack_sf.o)
+                0x00002a2e                __unpack_f
+ .text          0x00002b1e       0xb2 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fpcmp_parts_sf.o)
+                0x00002b1e                __fpcmp_parts_f
+ .text          0x00002bd0        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clz.o)
+ .text          0x00002bd0       0xc2 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
+                0x00002c6c                rand_r
+                0x00002c72                rand
+                0x00002c7c                srand
+ .text          0x00002c92        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mulsi3.o)
+ .text          0x00002c92        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodsi4.o)
+ .text          0x00002c92        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodsi4.o)
+                0x00002c92                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00002bc6       0x28 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodhi4.o)
-                0x00002bc6                __udivmodhi4
- .text.libgcc   0x00002bee       0x26 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodhi4.o)
-                0x00002bee                __divmodhi4
-                0x00002bee                _div
- .text.libgcc   0x00002c14        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
- .text.libgcc   0x00002c14        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_copy_data.o)
- .text.libgcc   0x00002c14        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clear_bss.o)
- .text.libgcc   0x00002c14       0x38 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_prologue.o)
-                0x00002c14                __prologue_saves__
- .text.libgcc   0x00002c4c       0x36 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_epilogue.o)
-                0x00002c4c                __epilogue_restores__
- .text.libgcc   0x00002c82       0x3e /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mulsi3.o)
-                0x00002c82                __mulsi3
- .text.libgcc   0x00002cc0       0x36 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodsi4.o)
-                0x00002cc0                __divmodsi4
- .text.libgcc   0x00002cf6       0x44 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodsi4.o)
-                0x00002cf6                __udivmodsi4
-                0x00002d3a                . = ALIGN (0x2)
+ .text.libgcc   0x00002c92       0x28 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodhi4.o)
+                0x00002c92                __udivmodhi4
+ .text.libgcc   0x00002cba       0x26 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodhi4.o)
+                0x00002cba                __divmodhi4
+                0x00002cba                _div
+ .text.libgcc   0x00002ce0        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
+ .text.libgcc   0x00002ce0        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00002ce0        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00002ce0       0x38 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_prologue.o)
+                0x00002ce0                __prologue_saves__
+ .text.libgcc   0x00002d18       0x36 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_epilogue.o)
+                0x00002d18                __epilogue_restores__
+ .text.libgcc   0x00002d4e       0x3e /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mulsi3.o)
+                0x00002d4e                __mulsi3
+ .text.libgcc   0x00002d8c       0x36 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodsi4.o)
+                0x00002d8c                __divmodsi4
+ .text.libgcc   0x00002dc2       0x44 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodsi4.o)
+                0x00002dc2                __udivmodsi4
+                0x00002e06                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00002d3a        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
-                0x00002d3a                exit
-                0x00002d3a                _exit
+ .fini9         0x00002e06        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
+                0x00002e06                exit
+                0x00002e06                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -398,11 +398,11 @@ LOAD /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00002d3a        0x4 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
+ .fini0         0x00002e06        0x4 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x00002d3e                _etext = .
+                0x00002e0a                _etext = .
 
-.data           0x00800060      0x2f6 load address 0x00002d3e
+.data           0x00800060      0x2f6 load address 0x00002e0a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/crtm32.o
@@ -484,7 +484,7 @@ LOAD /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a
                 0x00800356                _edata = .
                 0x00800356                PROVIDE (__data_end, .)
 
-.bss            0x00800356       0x4f load address 0x00003034
+.bss            0x00800356       0x55 load address 0x00003100
                 0x00800356                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x00800356        0x0 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/crtm32.o
@@ -492,67 +492,67 @@ LOAD /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a
                 0x00800358                snake_add_index
                 0x00800357                score
                 0x00800356                uwin_times
- .bss           0x00800359        0xe ./src/algorithm.o
-                0x00800365                adc_data
+ .bss           0x00800359       0x14 ./src/algorithm.o
+                0x0080036b                adc_data
                 0x00800359                result
- .bss           0x00800367        0x0 ./src/debug.o
- .bss           0x00800367        0x0 ./src/led_driver.o
- .bss           0x00800367        0x8 ./src/main.o
-                0x00800369                atomic_flags
-                0x0080036c                timer_delay
-                0x0080036b                atomic_temp
-                0x0080036d                time
-                0x00800367                flags
- .bss           0x0080036f        0x4 ./src/uint8_16_to_string.o
-                0x0080036f                to_string_result
- .bss           0x00800373        0x2 ./src/lcd/lcd_nokia_3310_frm_brunql.o
-                0x00800373                Lcd3310_Index
- .bss           0x00800375        0x4 ./src/lcd/lcd_nokia_menu.o
-                0x00800375                callibrate
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodhi4.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodhi4.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_copy_data.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clear_bss.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mul_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_div_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_gt_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_ge_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_lt_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_si_to_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_sf_to_si.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_thenan_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_usi_to_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_prologue.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_epilogue.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clzsi2.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_pack_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_unpack_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fpcmp_parts_sf.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clz.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mulsi3.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodsi4.o)
- .bss           0x00800379        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodsi4.o)
+ .bss           0x0080036d        0x0 ./src/debug.o
+ .bss           0x0080036d        0x0 ./src/led_driver.o
+ .bss           0x0080036d        0x8 ./src/main.o
+                0x0080036f                atomic_flags
+                0x00800372                timer_delay
+                0x00800371                atomic_temp
+                0x00800373                time
+                0x0080036d                flags
+ .bss           0x00800375        0x4 ./src/uint8_16_to_string.o
+                0x00800375                to_string_result
+ .bss           0x00800379        0x2 ./src/lcd/lcd_nokia_3310_frm_brunql.o
+                0x00800379                Lcd3310_Index
+ .bss           0x0080037b        0x4 ./src/lcd/lcd_nokia_menu.o
+                0x0080037b                callibrate
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodhi4.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodhi4.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_exit.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_copy_data.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clear_bss.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mul_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_div_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_gt_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_ge_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_lt_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_si_to_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_sf_to_si.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_thenan_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_usi_to_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_prologue.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_epilogue.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clzsi2.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_pack_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_unpack_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fpcmp_parts_sf.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clz.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mulsi3.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodsi4.o)
+ .bss           0x0080037f        0x0 /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_udivmodsi4.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800379       0x28 ./src/main.o
-                0x00800379                coefs_2
- COMMON         0x008003a1        0x4 ./src/lcd/lcd_nokia_menu.o
-                0x008003a1                menu_now_atomic
-                0x008003a3                menu_now
-                0x008003a5                PROVIDE (__bss_end, .)
-                0x00002d3e                __data_load_start = LOADADDR (.data)
-                0x00003034                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080037f       0x28 ./src/main.o
+                0x0080037f                coefs_2
+ COMMON         0x008003a7        0x4 ./src/lcd/lcd_nokia_menu.o
+                0x008003a7                menu_now_atomic
+                0x008003a9                menu_now
+                0x008003ab                PROVIDE (__bss_end, .)
+                0x00002e0a                __data_load_start = LOADADDR (.data)
+                0x00003100                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008003a5        0x0
-                0x008003a5                PROVIDE (__noinit_start, .)
+.noinit         0x008003ab        0x0
+                0x008003ab                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008003a5                PROVIDE (__noinit_end, .)
-                0x008003a5                _end = .
-                0x008003a5                PROVIDE (__heap_start, .)
+                0x008003ab                PROVIDE (__noinit_end, .)
+                0x008003ab                _end = .
+                0x008003ab                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -570,7 +570,7 @@ LOAD /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x5538
+.stab           0x00000000     0x5724
  *(.stab)
  .stab          0x00000000      0x6b4 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/crtm32.o
  .stab          0x000006b4      0xc54 ./src/SnakeGame.o
@@ -581,20 +581,20 @@ LOAD /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a
                                 0x3a8 (size before relaxing)
  .stab          0x00001c98      0x360 ./src/led_driver.o
                                 0x51c (size before relaxing)
- .stab          0x00001ff8     0x1218 ./src/main.o
-                               0x1500 (size before relaxing)
- .stab          0x00003210      0x468 ./src/uint8_16_to_string.o
+ .stab          0x00001ff8     0x13bc ./src/main.o
+                               0x16a4 (size before relaxing)
+ .stab          0x000033b4      0x468 ./src/uint8_16_to_string.o
                                 0x624 (size before relaxing)
- .stab          0x00003678     0x108c ./src/lcd/lcd_nokia_3310_frm_brunql.o
+ .stab          0x0000381c     0x108c ./src/lcd/lcd_nokia_3310_frm_brunql.o
                                0x132c (size before relaxing)
- .stab          0x00004704      0xb04 ./src/lcd/lcd_nokia_menu.o
-                                0xde0 (size before relaxing)
- .stab          0x00005208      0x330 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
+ .stab          0x000048a8      0xb4c ./src/lcd/lcd_nokia_menu.o
+                                0xe28 (size before relaxing)
+ .stab          0x000053f4      0x330 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
                                 0x33c (size before relaxing)
 
-.stabstr        0x00000000     0x1e67
+.stabstr        0x00000000     0x1e8d
  *(.stabstr)
- .stabstr       0x00000000     0x1e67 /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/crtm32.o
+ .stabstr       0x00000000     0x1e8d /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/crtm32.o
 
 .stab.excl
  *(.stab.excl)
@@ -667,14 +667,17 @@ Lcd3310_AnimationSwitchMenuItems                  ./src/lcd/lcd_nokia_menu.o
                                                   ./src/main.o
 Lcd3310_Char                                      ./src/lcd/lcd_nokia_3310_frm_brunql.o
                                                   ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
                                                   ./src/algorithm.o
                                                   ./src/SnakeGame.o
 Lcd3310_ClearCenter                               ./src/lcd/lcd_nokia_3310_frm_brunql.o
                                                   ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
                                                   ./src/algorithm.o
                                                   ./src/SnakeGame.o
 Lcd3310_GotoXY                                    ./src/lcd/lcd_nokia_3310_frm_brunql.o
                                                   ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
                                                   ./src/algorithm.o
                                                   ./src/SnakeGame.o
 Lcd3310_Index                                     ./src/lcd/lcd_nokia_3310_frm_brunql.o
@@ -748,7 +751,6 @@ __divmodhi4                                       /usr/lib/gcc/avr/4.3.3/avr5/li
 __divmodsi4                                       /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_divmodsi4.o)
                                                   /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
 __divsf3                                          /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_div_sf.o)
-                                                  ./src/algorithm.o
                                                   ./src/SnakeGame.o
 __do_clear_bss                                    /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_clear_bss.o)
                                                   /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
@@ -815,7 +817,6 @@ __epilogue_restores__                             /usr/lib/gcc/avr/4.3.3/avr5/li
                                                   /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_addsub_sf.o)
 __fixsfsi                                         /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_sf_to_si.o)
                                                   /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o)
-                                                  ./src/algorithm.o
 __fixunssfsi                                      /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fixunssfsi.o)
                                                   ./src/lcd/lcd_nokia_3310_frm_brunql.o
                                                   ./src/SnakeGame.o
@@ -823,7 +824,6 @@ __floatsisf                                       /usr/lib/gcc/avr/4.3.3/avr5/li
                                                   ./src/SnakeGame.o
 __floatunsisf                                     /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_usi_to_sf.o)
                                                   ./src/lcd/lcd_nokia_3310_frm_brunql.o
-                                                  ./src/algorithm.o
 __fpcmp_parts_f                                   /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_fpcmp_parts_sf.o)
                                                   /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_lt_sf.o)
                                                   /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_ge_sf.o)
@@ -838,7 +838,6 @@ __ltsf2                                           /usr/lib/gcc/avr/4.3.3/avr5/li
                                                   ./src/lcd/lcd_nokia_3310_frm_brunql.o
 __mulsf3                                          /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mul_sf.o)
                                                   ./src/lcd/lcd_nokia_3310_frm_brunql.o
-                                                  ./src/algorithm.o
 __mulsi3                                          /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_mulsi3.o)
                                                   /usr/lib/gcc/avr/4.3.3/../../../avr/lib/avr5/libc.a(rand.o)
 __pack_f                                          /usr/lib/gcc/avr/4.3.3/avr5/libgcc.a(_pack_sf.o)
@@ -915,6 +914,7 @@ atomic_temp                                       ./src/main.o
 back_setup                                        ./src/lcd/lcd_nokia_menu.o
 brunql_str                                        ./src/SnakeGame.o
 calibration                                       ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
 callibrate                                        ./src/lcd/lcd_nokia_menu.o
 coefs                                             ./src/algorithm.o
 coefs_2                                           ./src/main.o
@@ -928,6 +928,7 @@ flags                                             ./src/main.o
 get_present_speed                                 ./src/SnakeGame.o
                                                   ./src/main.o
 go                                                ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
 go_work_str                                       ./src/SnakeGame.o
 got_fun_str                                       ./src/SnakeGame.o
 hex2dec_result                                    ./src/algorithm.o
@@ -950,6 +951,7 @@ rand_r                                            /usr/lib/gcc/avr/4.3.3/../../.
 readme                                            ./src/lcd/lcd_nokia_menu.o
 result                                            ./src/algorithm.o
                                                   ./src/lcd/lcd_nokia_menu.o
+                                                  ./src/main.o
 results                                           ./src/lcd/lcd_nokia_menu.o
                                                   ./src/main.o
 score                                             ./src/SnakeGame.o

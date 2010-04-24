@@ -232,15 +232,14 @@ void Lcd3310_UpdateDisplayInfo(void)
 		 * Result window:
 		 *
 		 * |    Results:  |
-		 * |   B   G   R  |
-		 * |1 *** *** *** |
-		 * |2 *** *** *** |
-		 * |% xx% xx% xx% |
-		 * |  xxxxxxxxxxx |
+		 * |   R   G   B  |
+		 * |C *** *** *** |  Callibrate
+		 * |M *** *** *** |  Measure
+		 * |D *** *** *** |  Diff = | Callibrate - Measure |;
 		 *
 		 */
 
-		// |   B   G   R  |
+		// |   R   G   B  |
 		Lcd3310_GotoXY(3, 2);
 		Lcd3310_Char('R', BLACK_TEXT_ON_WHITE);
 		Lcd3310_GotoXY(7, 2);
@@ -248,21 +247,29 @@ void Lcd3310_UpdateDisplayInfo(void)
 		Lcd3310_GotoXY(11, 2);
 		Lcd3310_Char('B', BLACK_TEXT_ON_WHITE);
 
-		// |D *** *** *** |
+		// |C *** *** *** |  Callibrate values
 		Lcd3310_GotoXY(0, 3);
-		Lcd3310_Char('D', BLACK_TEXT_ON_WHITE);
+		Lcd3310_Char('C', BLACK_TEXT_ON_WHITE);
 		Lcd3310_GotoXY(2, 3);
+		Lcd3310_UInt16AsText_3Chars(result[CALIBRATE_INDX][RED], BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(result[CALIBRATE_INDX][GREEN], BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(result[CALIBRATE_INDX][BLUE], BLACK_TEXT_ON_WHITE);
+
+		// |M *** *** *** |	Measure values
+		Lcd3310_GotoXY(0, 4);
+		Lcd3310_Char('M', BLACK_TEXT_ON_WHITE);
+		Lcd3310_GotoXY(2, 4);
+		Lcd3310_UInt16AsText_3Chars(result[MEASURE_INDX][RED], BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(result[MEASURE_INDX][GREEN], BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(result[MEASURE_INDX][BLUE], BLACK_TEXT_ON_WHITE);
+
+		// |D *** *** *** |	Diff values
+		Lcd3310_GotoXY(0, 5);
+		Lcd3310_Char('D', BLACK_TEXT_ON_WHITE);
+		Lcd3310_GotoXY(2, 5);
 		Lcd3310_UInt16AsText_3Chars(result[DIFF_INDX][RED], BLACK_TEXT_ON_WHITE);
 		Lcd3310_UInt16AsText_3Chars(result[DIFF_INDX][GREEN], BLACK_TEXT_ON_WHITE);
 		Lcd3310_UInt16AsText_3Chars(result[DIFF_INDX][BLUE], BLACK_TEXT_ON_WHITE);
-
-		// |% **% **% **% |
-		Lcd3310_GotoXY(0, 4);
-		Lcd3310_Char('%', BLACK_TEXT_ON_WHITE);
-		Lcd3310_GotoXY(2, 4);
-		Lcd3310_UInt16AsText_3Chars(result[PERCENT][RED], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[PERCENT][GREEN], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[PERCENT][BLUE], BLACK_TEXT_ON_WHITE);
 	}
 }
 

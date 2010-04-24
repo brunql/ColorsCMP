@@ -140,7 +140,7 @@ ISR(INT1_vect)
 
 	GIFR = _BV(INTF1); // kill int1 flag
 
-	uint8_t result = J_CENTER;
+	uint8_t button_clicked = J_CENTER;
 
 //	Lcd3310_ClearCenter();
 //	Lcd3310_GotoXY(0, 0);
@@ -151,7 +151,7 @@ ISR(INT1_vect)
 		if( jpin_h == (uint8_t)(J_LU | J_RU) ){
 			if( jpin_h == (uint8_t)(J_LU | J_RU) ){
 				if( jpin_h == (uint8_t)(J_LU | J_RU) ){
-					result = J_DOWN;
+					button_clicked = J_DOWN;
 //					Lcd3310_Char('d', BLACK_TEXT_ON_WHITE);
 					break;
 				}
@@ -161,7 +161,7 @@ ISR(INT1_vect)
 		if( jpin_h == (uint8_t)(J_LD | J_RD) ){
 			if( jpin_h == (uint8_t)(J_LD | J_RD) ){
 				if( jpin_h == (uint8_t)(J_LD | J_RD) ){
-					result = J_UP;
+					button_clicked = J_UP;
 //					Lcd3310_Char('u', BLACK_TEXT_ON_WHITE);
 					break;
 				}
@@ -171,7 +171,7 @@ ISR(INT1_vect)
 		if( jpin_h == (uint8_t)(J_LU | J_LD) ){
 			if( jpin_h == (uint8_t)(J_LU | J_LD) ){
 				if( jpin_h == (uint8_t)(J_LU | J_LD) ){
-					result = J_RIGHT;
+					button_clicked = J_RIGHT;
 //					Lcd3310_Char('r', BLACK_TEXT_ON_WHITE);
 					break;
 				}
@@ -181,7 +181,7 @@ ISR(INT1_vect)
 		if( jpin_h == (uint8_t)(J_RU | J_RD) ){
 			if( jpin_h == (uint8_t)(J_RU | J_RD) ){
 				if( jpin_h == (uint8_t)(J_RU | J_RD) ){
-					result = J_LEFT;
+					button_clicked = J_LEFT;
 //					Lcd3310_Char('l', BLACK_TEXT_ON_WHITE);
 					break;
 				}
@@ -191,7 +191,7 @@ ISR(INT1_vect)
 		if( jpin_h == (uint8_t)(J_RU | J_LU | J_RD | J_LD) ){
 			if( jpin_h == (uint8_t)(J_RU | J_LU | J_RD | J_LD) ){
 				if( jpin_h == (uint8_t)(J_RU | J_LU | J_RD | J_LD) ){
-					result = J_CENTER;
+					button_clicked = J_CENTER;
 					//Lcd3310_Char('c', BLACK_TEXT_ON_WHITE);
 					break;
 				}
@@ -201,12 +201,12 @@ ISR(INT1_vect)
 
 	if (JOYSTICK_INT_CHECK()) { return; } // interrupt on brrzzzz then pulling up joystick, so not need to do smth
 
-	if (result == J_CENTER){
+	if (button_clicked == J_CENTER){
 		FLAGS_SWITCH_ON(JOYSTICK_CENTER_CLICK_FLAG);
 
 //		ALG_Start();
 
-	}else if(result == J_UP){
+	}else if(button_clicked == J_UP){
 		menu_now = menu_now->prev;
 
 #ifdef ANIMATION_SWITCH_MENU_ITEMS
@@ -215,7 +215,7 @@ ISR(INT1_vect)
 		menu_before_now--;
 		FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 #endif
-	}else if(result == J_DOWN){
+	}else if(button_clicked == J_DOWN){
 		menu_now = menu_now->next;
 
 #ifdef ANIMATION_SWITCH_MENU_ITEMS
@@ -224,19 +224,47 @@ ISR(INT1_vect)
 		menu_before_now++;
 		FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 #endif
-	}else if(result == J_LEFT){
+	}else if(button_clicked == J_LEFT){
 		IF_FLAG_ON( SNAKE_PLAYING_NOW_FLAG ){
 			SnakeGame_TurnLeft();
 		}
 
-//		EvalCoefs_2();
+		//LedDriver_SwitchLeds(RED_LEDS);
 
-	}else if(result == J_RIGHT){
+		if(menu_now == &results){
+			result[CALIBRATE_INDX][RED] = result[MEASURE_INDX][RED];
+			result[CALIBRATE_INDX][GREEN] = result[MEASURE_INDX][GREEN];
+			result[CALIBRATE_INDX][BLUE] = result[MEASURE_INDX][BLUE];
+
+			result[DIFF_INDX][RED] = 0;
+			result[DIFF_INDX][GREEN] = 0;
+			result[DIFF_INDX][BLUE] = 0;
+
+			Lcd3310_ClearCenter();
+			Lcd3310_GotoXY(5,3);
+			Lcd3310_Char('S', BLACK_TEXT_ON_WHITE);
+			Lcd3310_Char('a', BLACK_TEXT_ON_WHITE);
+			Lcd3310_Char('v', BLACK_TEXT_ON_WHITE);
+			Lcd3310_Char('e', BLACK_TEXT_ON_WHITE);
+			Lcd3310_Char('d', BLACK_TEXT_ON_WHITE);
+			_delay_ms(500);
+			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
+		}
+
+	}else if(button_clicked == J_RIGHT){
 		IF_FLAG_ON( SNAKE_PLAYING_NOW_FLAG ){
 			SnakeGame_TurnRight();
 		}
 
-//		ALG_Start();
+		//LedDriver_SwitchLeds(0x0000);
+
+		if(menu_now == &calibration){
+			menu_now = &go;
+		}else if(menu_now == &go){
+			menu_now = &calibration;
+		}
+		FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
+
 	}
 
 }

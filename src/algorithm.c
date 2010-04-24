@@ -23,8 +23,9 @@ double coefs[3] = {
 uint16_t max_diff = ADC_MAX_VALUE;
 
 // Algorithm results, show this in menu
-uint16_t result[2][3] = {
+uint16_t result[3][3] = {
 //		 R  G  B
+		{0, 0, 0},
 		{0, 0, 0},
 		{0, 0, 0}
 };
@@ -162,7 +163,7 @@ void ADC_N_Times(void)
 		}
 
 		adc_256_times += (uint32_t) adc_data;
-	} while( ++i != 0 ); // loop 256 times
+	} while( ++i != 245 ); // loop 245 times, 7 brrrzzzzzzzzzzz
 
 	PORTC &= (uint8_t)~_BV(PC3); // test pin down
 
@@ -172,28 +173,24 @@ void ADC_N_Times(void)
 }
 
 
-void CalibrationAlgorithm(uint8_t color)
-{
-	coefs[color] = (double) EVP_ALG_PERCENT * ADC_MAX_VALUE / adc_data;
-}
-
 void SetZeroAlgorithm(uint8_t color)
 {
 	max_diff = ADC_MAX_VALUE;// -  ((adc_res_first < adc_res_second) ? adc_res_first : adc_res_second);
-	Lcd3310_GotoXY(0,4);
 	Lcd3310_Char('K', BLACK_TEXT_ON_WHITE);
 	coefs[0] = 1;
 	coefs[1] = 1;
 	coefs[2] = 1;
 }
 
+void CalibrationAlgorithm(uint8_t color)
+{
+	result[CALIBRATE_INDX][color] = hex2dec_result( adc_data );
+}
+
 void SaveResultsAlgorithm(uint8_t color)
 {
-	int16_t result_coef_diff = (int16_t)((double)(((double)adc_data) * coefs[color]));
-	uint16_t diff_percent = 0xf1;//result_coef_diff * 100 / max_diff;//result[PERCENT][color] = DIFF(result1, result2);// * 100 / max_diff;
-
-	result[DIFF_INDX][color] = result_coef_diff;//hex2dec_result(result_coef_diff);
-	result[PERCENT][color] = diff_percent;//hex2dec_result(diff_percent);
+	result[MEASURE_INDX][color] = hex2dec_result( adc_data );
+	result[DIFF_INDX][color] = hex2dec_result( DIFF(adc_data, result[CALIBRATE_INDX][color]) );
 }
 
 void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
@@ -217,10 +214,9 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	}
 	Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
 
-	LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
-	_delay_ms( DELAY_BEFORE_START_ADC );
-
 	for(uint8_t color=0; color < 3; color++){
+		LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
+		_delay_ms( DELAY_BEFORE_START_ADC );
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
 		if(evalMe == SetZeroAlgorithm){
 			LedDriver_SwitchLeds( 0x00 );
@@ -229,6 +225,7 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 		}
 		_delay_ms( DELAY_BEFORE_START_ADC );
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+
 		ADC_N_Times();
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
 
