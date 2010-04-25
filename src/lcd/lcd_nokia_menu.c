@@ -8,13 +8,15 @@
 #include <avr/pgmspace.h>
 #include "main.h"
 #include "lcd/lcd_nokia_menu.h"
+#include "lcd/lcd_nokia_3310_frm_brunql.h"
+
 #include "led_driver.h"
 #include "algorithm.h"
 
 
-double callibrate = 0x00; // == adc_res_first / adc_res_second;
+//double callibrate = 0x00; // == adc_res_first / adc_res_second;
 
-uint8_t menu_before_now = 0x80; // because
+uint8_t menu_before_now = 0x80; // TODO: rewrite to use int8_t
 struct menu_item * menu_now;
 
 enum {
@@ -23,7 +25,7 @@ enum {
 	go_cmd,
 	results_cmd,
 	calibration_cmd,
-	set_zero_cmd,
+	set_measure_delay_cmd,
 	snake_start_cmd,
 	snake_results_cmd
 };
@@ -35,16 +37,16 @@ enum {
 
 struct menu_item *menu_now_atomic;
 
-//					name = 	{ CMD, 		main_menu, 	sub_menu, 	next, 	previous, string }; 
-struct menu_item go = {go_cmd, NULL, &results, &snake_start, &readme, 								"// Start    //"};
-	struct menu_item results = {results_cmd, &go, NULL, &results, &results, 							"// Results: //"};
-struct menu_item snake_start = {snake_start_cmd, NULL, &snake_results, &setup, &go, 				"// Snake    //"};
-	struct menu_item snake_results = {snake_results_cmd, &snake_start, NULL, &snake_results, &snake_results, 	"//   Snake  //"};
-struct menu_item setup = {ENTER_MENU_CMD, NULL, &calibration, &readme, &snake_start, 					"// Setup    //"};
-	struct menu_item set_zero = {set_zero_cmd, &setup, NULL, &calibration, &back_setup, 				"// Set zero //"};
-	struct menu_item calibration = {calibration_cmd, &setup, NULL, &back_setup, &set_zero, 				"//Callibrate//"};
-	struct menu_item back_setup = {BACK_CMD, &setup, NULL, &set_zero, &calibration, 					"// Back     //"};
-struct menu_item readme = {ENTER_MENU_CMD, NULL, &text, &go, &setup, 								"// Readme   //"};
+//		name = 	{ CMD, 		main_menu, 	sub_menu, 	next, 	previous, string };
+struct menu_item go = {go_cmd, NULL, &results, &snake_start, &readme, 												"// Start    //"};
+	struct menu_item results = {results_cmd, &go, NULL, &results, &results, 											"// Results: //"};
+struct menu_item snake_start = {snake_start_cmd, NULL, &snake_results, &setup, &go, 								"// Snake    //"};
+	struct menu_item snake_results = {snake_results_cmd, &snake_start, NULL, &snake_results, &snake_results, 			"// Game ON: //"};
+struct menu_item setup = {ENTER_MENU_CMD, NULL, &calibration, &readme, &snake_start, 								"// Setup    //"};
+	struct menu_item set_measure_delay = {set_measure_delay_cmd, &setup, NULL, &calibration, &back_setup, 				"// Delay  s //"};
+	struct menu_item calibration = {calibration_cmd, &setup, NULL, &back_setup, &set_measure_delay, 					"// Calibrate//"};
+	struct menu_item back_setup = {BACK_CMD, &setup, NULL, &set_measure_delay, &calibration, 							"// Back     //"};
+struct menu_item readme = {ENTER_MENU_CMD, NULL, &text, &go, &setup, 												"// Readme   //"};
 	struct menu_item text = {BACK_CMD, &readme, NULL, &text, &text, "[ Programmer:][   brunql   ][    (at)    ][  gmail.com ]"};
 
 void Menu_EnterClick(void)
@@ -73,9 +75,6 @@ void Menu_EnterClick(void)
 		
 		case calibration_cmd:
 			FLAGS_SWITCH_ON( ADC_CALIBRATE_FLAG );
-			break;
-		case set_zero_cmd:
-			FLAGS_SWITCH_ON( ADC_SET_ZERO );
 			break;
 
 		case snake_start_cmd:
@@ -148,7 +147,7 @@ void Lcd3310_AnimationSwitchMenuItems(char is_turn_left)
 #			else
 				Lcd3310_GotoXY(0, i); // no images at top
 #			endif
-			Lcd3310_String_P_anime(
+			Lcd3310_String_P_Anime(
 							(is_turn_left) ? menu_temp->prev->str : menu_temp->next->str,
 							menu_temp->str,
 							(menu_now_atomic == menu_temp), // WhiteOrBlackText
@@ -219,10 +218,14 @@ void Lcd3310_UpdateDisplayInfo(void)
 				Lcd3310_GotoXY(0, i); // no images at top
 #			endif
 #		endif
-		if(menu_temp->str == results.str){
+		if(menu_temp == &results){
 			Lcd3310_GotoXY(0, i + 1);
 		}
 		Lcd3310_String_P(menu_temp->str, (menu_now_atomic == menu_temp));
+		if(menu_temp == &set_measure_delay){
+			Lcd3310_GotoXY(9, i + 1); // TODO: NEED TEST: (i+1) LCD_IMAGES, LCD_FIRST_STR
+			Lcd3310_Char(measure_delay + 0x30, (menu_now_atomic == menu_temp));
+		}
 		menu_temp = menu_temp->next;
 	}
 
@@ -251,25 +254,25 @@ void Lcd3310_UpdateDisplayInfo(void)
 		Lcd3310_GotoXY(0, 3);
 		Lcd3310_Char('C', BLACK_TEXT_ON_WHITE);
 		Lcd3310_GotoXY(2, 3);
-		Lcd3310_UInt16AsText_3Chars(result[CALIBRATE_INDX][RED], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[CALIBRATE_INDX][GREEN], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[CALIBRATE_INDX][BLUE], BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[CALIBRATE_INDX][RED] ), BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[CALIBRATE_INDX][GREEN] ), BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[CALIBRATE_INDX][BLUE] ), BLACK_TEXT_ON_WHITE);
 
 		// |M *** *** *** |	Measure values
 		Lcd3310_GotoXY(0, 4);
 		Lcd3310_Char('M', BLACK_TEXT_ON_WHITE);
 		Lcd3310_GotoXY(2, 4);
-		Lcd3310_UInt16AsText_3Chars(result[MEASURE_INDX][RED], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[MEASURE_INDX][GREEN], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[MEASURE_INDX][BLUE], BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[MEASURE_INDX][RED] ), BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[MEASURE_INDX][GREEN] ), BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[MEASURE_INDX][BLUE] ), BLACK_TEXT_ON_WHITE);
 
 		// |D *** *** *** |	Diff values
 		Lcd3310_GotoXY(0, 5);
 		Lcd3310_Char('D', BLACK_TEXT_ON_WHITE);
 		Lcd3310_GotoXY(2, 5);
-		Lcd3310_UInt16AsText_3Chars(result[DIFF_INDX][RED], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[DIFF_INDX][GREEN], BLACK_TEXT_ON_WHITE);
-		Lcd3310_UInt16AsText_3Chars(result[DIFF_INDX][BLUE], BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[DIFF_INDX][RED] ), BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[DIFF_INDX][GREEN] ), BLACK_TEXT_ON_WHITE);
+		Lcd3310_UInt16AsText_3Chars(hex2dec_result( result[DIFF_INDX][BLUE] ), BLACK_TEXT_ON_WHITE);
 	}
 }
 

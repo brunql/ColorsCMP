@@ -42,19 +42,19 @@ typedef enum {
 #define ADC_MAX_VALUE 	0x3FF
 
 // Wait for foto-resistor in ms
-#define DELAY_BEFORE_START_ADC		2000
+#define MEASURE_DELAY_BEFORE_START_ADC		2
 
-
+extern uint8_t measure_delay;
 
 extern volatile uint16_t adc_data;
 extern uint16_t result[3][3];
 extern double coefs[3];
-extern uint16_t zero[2];
 
+extern uint16_t hex2dec_result(uint16_t hex);
+extern void MeasureAllAlgorithm(uint8_t color);
 extern void CalibrationAlgorithm(uint8_t color);
-extern void SetZeroAlgorithm(uint8_t color);
-extern void SaveResultsAlgorithm(uint8_t color);
 extern void ADC_LoadingAndEvalIt(ptrEvalMe evalMe);
+extern void SaveMeasureResultsToCalibrate(void);
 
 
 #endif /* ALGORITHM_H_ */

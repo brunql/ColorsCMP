@@ -8,9 +8,11 @@
 #include "main.h" // #ifdef compilation
 #include "lcd/lcd_nokia_3310_frm_brunql.h" // include's io.h, pgmspace.h and delay.h
 
+#include "lcd/lcd_nokia_menu.h" // for set_meause_delay.str
+#include "algorithm.h" // for measure_delay
+
 #include "lcd/lcd_nokia_3310_font_lookup.h"
 #include "lcd/lcd_nokia_3310_images.h"
-
 #include "uint8_16_to_string.h"
 
 
@@ -103,7 +105,7 @@ void Lcd3310_String_P(PGM_P str_ptr, WhiteOrBlackText is_invert_colors)
 }
 
 #ifdef ANIMATION_SWITCH_MENU_ITEMS
-void Lcd3310_String_P_anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBlackText is_invert_colors, char num_of_cadr, char is_next)
+void Lcd3310_String_P_Anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBlackText is_invert_colors, char num_of_cadr, char is_next)
 {
 	unsigned char ch1 = 1, ch2 = 1, display, temp1, temp2, count = 0;
 
@@ -114,9 +116,15 @@ void Lcd3310_String_P_anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBlackText 
 		count++;
 		if(*str_ptr) ch1 = *(str_ptr++);
 		else ch1 = 0x00;
+		if(str_ptr == &set_measure_delay.str[count] && count == 10){
+			ch1 = measure_delay + 0x30;
+		}
 		
 		if(*str_ptr_next) ch2 = *(str_ptr_next++);
 		else ch2 = 0x00;
+		if(str_ptr_next == &set_measure_delay.str[count] && count == 10){
+			ch2 = measure_delay + 0x30;
+		}
 
 		for (char i = 0; i < 5; i++ ){		
 			if(ch1) PGM_GET_BYTE_FROM_FONTLOOKUP(temp1, ch1, i )

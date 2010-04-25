@@ -29,16 +29,16 @@ extern uint8_t timer_ticks_to_get_present;
 #define LCD_IMAGES
 //#define USING_RU_FONTS
 
-#define	UPDATE_DISPLAY_FLAG			_BV(0)
-#define JOYSTICK_CENTER_CLICK_FLAG	_BV(1)
-#define	ANIMATION_NEXT_FLAG			_BV(2)
-#define	ANIMATION_PREV_FLAG			_BV(3)
-#define	ADC_RESULT_FLAG				_BV(4)
-#define	ADC_CALIBRATE_FLAG			_BV(5)
-#define ADC_SET_ZERO				_BV(6)
-#define SNAKE_PLAYING_NOW_FLAG 		_BV(7)
-#define SNAKE_START_GAME_FLAG 		_BV(8)
-#define SNAKE_STOP_GAME_FLAG 		_BV(9)
+#define	UPDATE_DISPLAY_FLAG					_BV(0)
+#define JOYSTICK_CENTER_CLICK_FLAG			_BV(1)
+#define	ANIMATION_NEXT_FLAG					_BV(2)
+#define	ANIMATION_PREV_FLAG					_BV(3)
+#define	ADC_RESULT_FLAG						_BV(4)
+#define	ADC_CALIBRATE_FLAG					_BV(5)
+#define SNAKE_PLAYING_NOW_FLAG 				_BV(6)
+#define SNAKE_START_GAME_FLAG 				_BV(7)
+#define SNAKE_STOP_GAME_FLAG 				_BV(8)
+#define SAVE_MEASURED_AS_CALIBRATE_FLAG 	_BV(9)
 
  
 
@@ -50,11 +50,16 @@ extern uint8_t timer_ticks_to_get_present;
 
 #define 	ADC_CONVERT_IN_PROGRESS()	( ADCSRA & _BV(ADSC) )
 
+#define LED_PORT	PORTC
+#define LED_DDR		DDRC
+#define LED_P		_BV(PC3)
+
 //================================================//
 // 				Joystick defines
 #define JDDR	DDRC
 #define JPORT	PORTC
 #define JPIN	PINC
+#define J_C		_BV(PD3) /* CENTER - PD3 (INT0) */
 #define J_RU	_BV(PC4) /* RIGHT UP */
 #define J_LU	_BV(PC7) /* LEFT UP */
 #define J_RD	_BV(PC5) /* RIGHT DOWN */
@@ -72,8 +77,8 @@ extern uint8_t timer_ticks_to_get_present;
 #define JOYSTICK_INT_CHECK()	( PIND & _BV(PD3) )
 //================================================//
 
-#define ENABLE 1
-#define DISABLE 0
+//#define ENABLE 1
+//#define DISABLE 0
 #ifndef NULL
 #	define NULL 0
 #endif
@@ -82,11 +87,9 @@ extern uint8_t timer_ticks_to_get_present;
 #define TIM2_CLR_COUNTER_AND_OVF_ON()	{ TCNT2 = 0x00; TIMSK |= _BV(TOIE2); }		/* tim2 interrupt enable */
 #define TIM2_OVF_OFF() 					{ TIMSK &= (unsigned char)~_BV(TOIE2); }	/* tim2 interrupt disable */
 
-#define ABS(x)		(((int16_t)(x)<0)?(-((int16_t)x)):(x))
-#define DIFF(x,y) 	ABS((int16_t)(x) - (int16_t)(y))
+//#define ABS(x)		(((int16_t)(x)<0)?(-((int16_t)x)):(x))
+//#define DIFF(x,y) 	ABS((int16_t)(x) - (int16_t)(y))
 //#define CONCAT(A, B)	A##B
-
-#define DELAY_UPDATE_DISPLAY 0x4
 
 
 //#define TEST_PIN_DDR_INIT()	{ DDRD |= _BV(PD0); }

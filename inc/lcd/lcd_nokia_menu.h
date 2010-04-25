@@ -9,7 +9,6 @@
 #define _LCD_NOKIA_MENU_INCLUDED_ 1
 
 #include <avr/pgmspace.h> // for PGM_P
-#include "lcd/lcd_nokia_3310_frm_brunql.h"
 
 //================================================//
 //==				#defines					==//
@@ -53,7 +52,7 @@ extern struct menu_item snake_start;
 	extern struct menu_item snake_results;
 extern struct menu_item setup;
 	extern struct menu_item calibration;
-	extern struct menu_item set_zero;
+	extern struct menu_item set_measure_delay;
 	extern struct menu_item back_setup;
 extern struct menu_item readme;
 	extern struct menu_item text;

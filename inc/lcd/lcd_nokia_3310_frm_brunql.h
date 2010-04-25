@@ -67,7 +67,7 @@ extern void Lcd3310_Send (char data, LcdCmdData cd);
 extern void Lcd3310_Init(uint16_t show_init_data_delay_ms);
 extern void Lcd3310_Char(unsigned char ch, WhiteOrBlackText is_invert_colors);
 extern void Lcd3310_String_P(PGM_P str_ptr, WhiteOrBlackText is_invert_colors);
-extern void Lcd3310_String_P_anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBlackText is_invert_colors, char num_of_cadr, char is_next);
+extern void Lcd3310_String_P_Anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBlackText is_invert_colors, char num_of_cadr, char is_next);
 extern void Lcd3310_GotoXY(uint16_t x, uint16_t y);
 extern void Lcd3310_ClearCenter(void);
 extern void Lcd3310_UInt8AsText(uint8_t ch, WhiteOrBlackText is_invert_colors);
