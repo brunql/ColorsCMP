@@ -20,9 +20,13 @@ typedef enum {
 #define EVP_ALG_PERCENT  (0.50)
 
 
-#define RED		0
-#define GREEN 	1
-#define BLUE	2
+#define RED			0
+#define GREEN 		1
+#define BLUE		2
+#define RED_GREEN 	3
+#define RED_BLUE 	4
+#define GREEN_BLUE  5
+#define ALL			6
 
 #ifndef FIRST
 #	define FIRST 	0
@@ -47,8 +51,8 @@ typedef enum {
 extern uint8_t measure_delay;
 
 extern volatile uint16_t adc_data;
-extern uint16_t result[3][3];
-extern double coefs[3];
+extern uint16_t result[3][7];
+//extern double coefs[3];
 
 extern uint16_t hex2dec_result(uint16_t hex);
 extern void MeasureAllAlgorithm(uint8_t color);

@@ -12,27 +12,29 @@
 #include "lcd/lcd_nokia_3310_frm_brunql.h"
 
 
-// calibration coefficients
-double coefs[3] = {
-//		R  G  B
-		1, 1, 1
-};
+//// calibration coefficients
+//double coefs[3] = {
+////		R  G  B
+//		1, 1, 1
+//};
 
 
 // this value eval then "set zero" and use for eval percent(%) of difference between sensors
 uint16_t max_diff = ADC_MAX_VALUE;
 
 // Algorithm results, show this in menu
-uint16_t result[3][3] = {
-//		 R  G  B
-		{0, 0, 0},
-		{0, 0, 0},
-		{0, 0, 0}
+uint16_t result[3][7] = {
+//		 R  G  B RG RB GB ALL
+		{0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0}
 };
 
-uint16_t led_show_codes[3] = {
+uint16_t led_show_codes[7] = {
 //		 	R  		 G  		 B
-		RED_LEDS, GREEN_LEDS, BLUE_LEDS
+		RED_LEDS, GREEN_LEDS, BLUE_LEDS,
+		(RED_LEDS | GREEN_LEDS), (RED_LEDS | BLUE_LEDS), (GREEN_LEDS | BLUE_LEDS),
+		(RED_LEDS | GREEN_LEDS | BLUE_LEDS)
 };
 
 volatile uint16_t adc_data = 0x0000;
@@ -88,10 +90,18 @@ void SaveMeasureResultsToCalibrate(void)
 	result[CALIBRATE_INDX][RED] = result[MEASURE_INDX][RED];
 	result[CALIBRATE_INDX][GREEN] = result[MEASURE_INDX][GREEN];
 	result[CALIBRATE_INDX][BLUE] = result[MEASURE_INDX][BLUE];
+	result[CALIBRATE_INDX][RED_GREEN] = result[MEASURE_INDX][RED_GREEN];
+	result[CALIBRATE_INDX][RED_BLUE] = result[MEASURE_INDX][RED_BLUE];
+	result[CALIBRATE_INDX][GREEN_BLUE] = result[MEASURE_INDX][GREEN_BLUE];
+	result[CALIBRATE_INDX][ALL] = result[MEASURE_INDX][ALL];
 
 	result[DIFF_INDX][RED] = 0;
 	result[DIFF_INDX][GREEN] = 0;
 	result[DIFF_INDX][BLUE] = 0;
+	result[DIFF_INDX][RED_GREEN] = 0;
+	result[DIFF_INDX][RED_BLUE] = 0;
+	result[DIFF_INDX][GREEN_BLUE] = 0;
+	result[DIFF_INDX][ALL] = 0;
 
 	Lcd3310_ClearCenter();
 	Lcd3310_GotoXY(5,3);
@@ -135,7 +145,7 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	Lcd3310_GotoXY(1, 3);
 	Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
 
-	for(uint8_t color=0; color < 3; color++){
+	for(uint8_t color=0; color < 7; color++){
 		LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
 		_delay_ms((double) measure_delay * 1000 );
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
