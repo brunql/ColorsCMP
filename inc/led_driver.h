@@ -19,10 +19,10 @@
 #define LATCH_PIN	_BV(PA4)
 
 #define LATCH_UP			{ LED_DR_PORT |= LATCH_PIN;	}
-#define LATCH_DOWN			{ LED_DR_PORT &= (unsigned char) ~LATCH_PIN;	}
+#define LATCH_DOWN			{ LED_DR_PORT &= (uint8_t) ~LATCH_PIN;	}
 #define LATCH_PULSE			{ LATCH_UP; __asm__ __volatile__("nop"::); LATCH_DOWN; }
 
-#define CLK_DOWN		{ LED_DR_PORT &= (unsigned char) ~CLK_PIN; 	}
+#define CLK_DOWN		{ LED_DR_PORT &= (uint8_t) ~CLK_PIN; 	}
 #define CLK_UP			{ LED_DR_PORT |= CLK_PIN; 	}
 
 #define RED_LEDS		0x0090

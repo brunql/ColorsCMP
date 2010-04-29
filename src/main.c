@@ -16,9 +16,13 @@
 #include "main.h"
 #include "led_driver.h"
 #include "lcd/lcd_nokia_menu.h"
+#include "lcd/lcd_nokia_3310_frm_brunql.h"
 #include "algorithm.h" // define extern variables for main problem
 #include "SnakeGame.h"
 #include "debug.h"	// define here DEBUG to 1 for enable debug mode
+
+#include "usbdrv.h" // usbPoll();
+#include "usb.h"
 
 uint16_t flags = 0x0000;
 uint16_t atomic_flags = 0x0000;
@@ -169,10 +173,14 @@ ISR(INT1_vect)
 		menu_before_now++;
 		FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 #		endif
+
+
 	}else if(button_clicked == J_LEFT){
 		IF_FLAG_ON( SNAKE_PLAYING_NOW_FLAG ){
 			SnakeGame_TurnLeft();
 		}
+
+//		usbDeviceDisconnect();
 
 		if(menu_now == &results){
 			FLAGS_SWITCH_ON( SAVE_MEASURED_AS_CALIBRATE_FLAG );
@@ -183,10 +191,14 @@ ISR(INT1_vect)
 			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 		}
 
+
 	}else if(button_clicked == J_RIGHT){
 		IF_FLAG_ON( SNAKE_PLAYING_NOW_FLAG ){
 			SnakeGame_TurnRight();
 		}
+
+
+//		usbInit_FakeUsbDisconnect();
 
 		if(menu_now == &calibration){
 			menu_now = &go;
@@ -226,6 +238,9 @@ int main(void)
 	DEBUG_INIT(); // Initialize uart if DEBUG > 0
 	DEBUG_PRINT_CHAR( 0x01 );
 
+	PORTA = 0x00;
+	DDRA = 0x00;
+
 	// Input/Output Ports initialization
     PORTB = 0x00;
     DDRB = 0x00;
@@ -254,7 +269,9 @@ int main(void)
     TCCR2 = 0x00;
     TIMSK = 0x00;
 
-	TIM2_INIT(); // see defines.h for details
+    usbInit_FakeUsbDisconnect();
+
+    TIM2_INIT(); // see defines.h for details
 
     // Init ADC
 	ADMUX =  _BV(MUX3) | _BV(MUX0); // diff * 10; result in ADC
@@ -265,20 +282,48 @@ int main(void)
 	while(ADC_CONVERT_IN_PROGRESS()){}
 	adc_data = ADC;
 
-	LedDriver_Init();
-	LedDriver_SwitchLeds(0x0000);
+    usbPoll();
 
-	Lcd3310_InitializeDisplay(DELAY_SHOW_SPLASH);
-	DEBUG_PRINT_CHAR( 0x02 );
+	LedDriver_Init();
+	usbPoll();
+//	LedDriver_SwitchLeds(0x0000);
+	LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS );
+	usbPoll();
+
+	Lcd3310_InitializeDisplay( DELAY_SHOW_SPLASH );
+	usbPoll();
+//	DEBUG_PRINT_CHAR( 0x02 );
+
 
 
 	sei();
-	DEBUG_PRINT_CHAR( 0x03 );
+//	DEBUG_PRINT_CHAR( 0x03 );
+
+//	PORTB = _BV( PB6 ); // MISO
+//	DDRB = _BV( PB6 );
+
+
+//	// Test Lcd 3310 Bug...
+//	for(uint8_t a=0; a < 0xff; a++){
+//		for(uint8_t i=0; i< 0xff; i++){
+//			Lcd3310_UInt8AsText(i, BLACK_TEXT_ON_WHITE);
+//			_delay_ms(100);
+//		}
+//	}
+//	// End Test
 
 
    	for(;;){
 
-		IF_FLAG_ON( UPDATE_DISPLAY_FLAG ){
+//   		if(PINB & _BV( PB6 )){
+//   			PORTB &=(uint8_t)~ _BV( PB6 );
+//   		}else{
+//   			PORTB = _BV( PB6 );
+//   		}
+
+   		usbPoll();
+
+   		IF_FLAG_ON( UPDATE_DISPLAY_FLAG ){
 			FLAGS_SWITCH_OFF( UPDATE_DISPLAY_FLAG );
 
 			IF_FLAG_OFF( SNAKE_PLAYING_NOW_FLAG ){
@@ -300,7 +345,9 @@ int main(void)
 
 			ADC_LoadingAndEvalIt(MeasureAllAlgorithm);
 
-			DebugSendAllResultValues();
+			alg_state = 0xff;
+
+//			DebugSendAllResultValues();
 
 			FLAGS_SWITCH_OFF( ADC_RESULT_FLAG );
 			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );

@@ -16,7 +16,7 @@ void LedDriver_SwitchLeds(uint16_t data)
 		if(data & _BV(i)){
 			LED_DR_PORT |= DATA_PIN;
 		}else{
-			LED_DR_PORT &= (unsigned char)~DATA_PIN;
+			LED_DR_PORT &= (uint8_t)~DATA_PIN;
 		}
 		CLK_UP;
 	}

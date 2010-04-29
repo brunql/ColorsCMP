@@ -283,7 +283,7 @@ void Lcd3310_UpdateDisplayInfo(void)
 //
 //	LedDriver_PWM(PWM, leds);
 //	if (first){
-//		ADMUX &= (unsigned char) ~ _BV(MUX0);
+//		ADMUX &= (uint8_t) ~ _BV(MUX0);
 //	}else{ // second
 //		ADMUX |= _BV(MUX0);
 //	}

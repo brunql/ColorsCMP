@@ -38,7 +38,7 @@ void Lcd3310_Init(uint16_t show_init_data_delay_ms)
     _delay_ms(50);
 
     //  Toggle display reset pin.
-    PORTB &= (unsigned char)~LCD_RST_PIN;
+    PORTB &= (uint8_t)~LCD_RST_PIN;
     _delay_ms(1);
     PORTB |= LCD_RST_PIN;
 
@@ -69,7 +69,7 @@ void Lcd3310_Init(uint16_t show_init_data_delay_ms)
 	_delay_ms(show_init_data_delay_ms); // show image from LcdCache initial value
 }
 
-void Lcd3310_Char(unsigned char ch, WhiteOrBlackText is_invert_colors)
+void Lcd3310_Char(uint8_t ch, WhiteOrBlackText is_invert_colors)
 {
 	//  Convert to a printable character.
     if ( (ch < 0x20) ){
@@ -82,7 +82,7 @@ void Lcd3310_Char(unsigned char ch, WhiteOrBlackText is_invert_colors)
 	for (char i = 0; i < 5; i++ ){		
 		char temp;
 		PGM_GET_BYTE_FROM_FONTLOOKUP(temp, ch, i );
-		if(is_invert_colors) temp = (unsigned char) ~temp;
+		if(is_invert_colors) temp = (uint8_t) ~temp;
 	    Lcd3310_Send( temp, LCD_DATA );
     }
 	if(is_invert_colors) Lcd3310_Send( 0xff, LCD_DATA );
@@ -107,7 +107,7 @@ void Lcd3310_String_P(PGM_P str_ptr, WhiteOrBlackText is_invert_colors)
 #ifdef ANIMATION_SWITCH_MENU_ITEMS
 void Lcd3310_String_P_Anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBlackText is_invert_colors, char num_of_cadr, char is_next)
 {
-	unsigned char ch1 = 1, ch2 = 1, display, temp1, temp2, count = 0;
+	uint8_t ch1 = 1, ch2 = 1, display, temp1, temp2, count = 0;
 
 	Lcd3310_Send( 0x80 | (Lcd3310_Index % LCD_X_RES), LCD_CMD );
     Lcd3310_Send( 0x40 | (Lcd3310_Index / LCD_X_RES), LCD_CMD );
@@ -135,7 +135,7 @@ void Lcd3310_String_P_Anime(PGM_P str_ptr, PGM_P str_ptr_next, WhiteOrBlackText 
 
 			if(is_next) display = (temp1 >> num_of_cadr) | ( (temp2 << (8 - num_of_cadr)) );
 			else 		display = (temp1 << num_of_cadr) | ( (temp2 >> (8 - num_of_cadr)) );
-			if(is_invert_colors) display = (unsigned char) ~display;
+			if(is_invert_colors) display = (uint8_t) ~display;
 		    Lcd3310_Send( display, LCD_DATA );
 	    }
 		if(is_invert_colors) Lcd3310_Send( 0xff, LCD_DATA );
@@ -229,15 +229,15 @@ void Lcd3310_InitFill(void)
 void Lcd3310_Send (char data, LcdCmdData cd)
 {
 	//  Enable display controller (active low).
-    PORTB &= (unsigned char)~LCD_CE_PIN;
+    PORTB &= (uint8_t)~LCD_CE_PIN;
 
     if ( cd == LCD_DATA )
     {
-        PORTB |= (unsigned char)LCD_DC_PIN;
+        PORTB |= (uint8_t)LCD_DC_PIN;
     }
     else
     {
-        PORTB &= (unsigned char)~LCD_DC_PIN;
+        PORTB &= (uint8_t)~LCD_DC_PIN;
     }
 
     //  Send data to display controller.
@@ -247,5 +247,5 @@ void Lcd3310_Send (char data, LcdCmdData cd)
     while ( (SPSR & _BV(SPIE)) == 0 );
 
     //  Disable display controller.
-    PORTB |= (unsigned char)LCD_CE_PIN;
+    PORTB |= (uint8_t)LCD_CE_PIN;
 }

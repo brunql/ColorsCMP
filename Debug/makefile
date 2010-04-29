@@ -9,6 +9,8 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir.mk
+-include usbdrv/src/subdir.mk
+-include usbdrv/asm/subdir.mk
 -include src/subdir.mk
 -include src/lcd/subdir.mk
 -include objects.mk

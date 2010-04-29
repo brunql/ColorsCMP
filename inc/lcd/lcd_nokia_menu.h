@@ -29,7 +29,7 @@
 //==				Variables					==//
 
 struct menu_item {
-	unsigned char cmd;
+	uint8_t cmd;
 	
 	struct menu_item * main_menu;
 	struct menu_item * sub_menu;

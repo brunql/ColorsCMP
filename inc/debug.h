@@ -5,7 +5,7 @@
 // Author  : brunql
 //================================================//
 
-#define DEBUG	1
+#define DEBUG	0
 
 #include <avr/io.h>
 #include <avr/pgmspace.h>

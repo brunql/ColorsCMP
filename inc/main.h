@@ -13,7 +13,7 @@
 
 extern uint16_t flags;
 extern uint16_t atomic_flags;
-extern unsigned char atomic_temp;
+extern uint8_t atomic_temp;
 
 extern uint16_t show_me_1;
 extern uint16_t show_me_2;
@@ -73,7 +73,7 @@ extern uint8_t timer_ticks_to_get_present;
 
 #define JOYSTICK_INT	INT1
 #define JOYSTICK_INT_ENABLE() 	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GIFR = _BV(INTF0); GICR |= _BV(JOYSTICK_INT); 	}}
-#define JOYSTICK_INT_DISABLE() 	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR &=  (unsigned char)~(_BV(JOYSTICK_INT)); 	}}
+#define JOYSTICK_INT_DISABLE() 	{ ATOMIC_BLOCK(ATOMIC_RESTORESTATE) { GICR &=  (uint8_t)~(_BV(JOYSTICK_INT)); 	}}
 #define JOYSTICK_INT_CHECK()	( PIND & _BV(PD3) )
 //================================================//
 
@@ -85,7 +85,7 @@ extern uint8_t timer_ticks_to_get_present;
 
 #define TIM2_INIT() 					{ TCCR2 = (_BV(CS22) | _BV(CS21) /*| _BV(CS20)*/ ); } /* clk / 1024 */
 #define TIM2_CLR_COUNTER_AND_OVF_ON()	{ TCNT2 = 0x00; TIMSK |= _BV(TOIE2); }		/* tim2 interrupt enable */
-#define TIM2_OVF_OFF() 					{ TIMSK &= (unsigned char)~_BV(TOIE2); }	/* tim2 interrupt disable */
+#define TIM2_OVF_OFF() 					{ TIMSK &= (uint8_t)~_BV(TOIE2); }	/* tim2 interrupt disable */
 
 //#define ABS(x)		(((int16_t)(x)<0)?(-((int16_t)x)):(x))
 //#define DIFF(x,y) 	ABS((int16_t)(x) - (int16_t)(y))

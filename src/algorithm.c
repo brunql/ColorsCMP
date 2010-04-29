@@ -18,6 +18,7 @@
 //		1, 1, 1
 //};
 
+volatile uint8_t alg_state = NOTHING_CHANGED;
 
 // this value eval then "set zero" and use for eval percent(%) of difference between sensors
 uint16_t max_diff = ADC_MAX_VALUE;
@@ -145,28 +146,44 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	Lcd3310_GotoXY(1, 3);
 	Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
 
-	for(uint8_t color=0; color < 7; color++){
+	alg_state = STARTS;
+	usbPoll();
+
+	for(uint8_t color=0; color < 3; color++){
 		LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
 		_delay_ms((double) measure_delay * 1000 );
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+		alg_state++;
+		usbPoll();
 
 		LedDriver_SwitchLeds( led_show_codes[color] );
 		_delay_ms((double) measure_delay * 1000 );
 
-		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+//		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+//		alg_state++;
+//		usbPoll();
 
 		ADC_N_Times();
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+		alg_state++;
+		usbPoll();
 
 		// Start Algorithm
 		(evalMe)(color);
 	}
-//	LedDriver_SwitchLeds( 0x00 );
+//	LedDriver_SwitchLeds( 0x0000 );
+	alg_state = ENDS;
+	usbPoll();
 	LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
 	Lcd3310_Char(']', BLACK_TEXT_ON_WHITE);
+
+
 	Lcd3310_GotoXY(2, 5);
 	Lcd3310_String_P( pstr_complete, BLACK_TEXT_ON_WHITE );
 	_delay_ms(500); // show complete and wait 0.5 sec
+
+	alg_state = HAS_CHANGES;
+	usbPoll();
 
 	JOYSTICK_INT_ENABLE();
 }

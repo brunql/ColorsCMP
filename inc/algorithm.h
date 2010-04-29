@@ -50,6 +50,15 @@ typedef enum {
 
 extern uint8_t measure_delay;
 
+extern volatile uint8_t alg_state;
+enum ALG_STATE {
+			NOTHING_CHANGED = 0x00,
+			STARTS = 0x01,
+			/* 0x02..0x20 algorithm steps */
+			ENDS = 0x21,
+			HAS_CHANGES = 0xff
+};
+
 extern volatile uint16_t adc_data;
 extern uint16_t result[3][7];
 //extern double coefs[3];
