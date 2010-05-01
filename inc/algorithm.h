@@ -56,7 +56,7 @@ enum ALG_STATE {
 			STARTS = 0x01,
 			/* 0x02..0x20 algorithm steps */
 			ENDS = 0x21,
-			HAS_CHANGES = 0xff
+			HAS_CHANGES = 0x7f
 };
 
 extern volatile uint16_t adc_data;

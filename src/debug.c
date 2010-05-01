@@ -36,4 +36,53 @@ void uart_putstring_P(const char *strPtr)
 	}
 }
 
+
+
+//void DebugSendAllResultValues(void)
+//{
+//	ATOMIC_BLOCK( ATOMIC_RESTORESTATE ){
+//		DEBUG_PRINT_CHAR( 'C' );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][RED] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][GREEN] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][RED_GREEN] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][RED_BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][GREEN_BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][ALL] ) );
+//
+//		DEBUG_PRINT_CHAR( 'M' );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][RED] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][GREEN] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][RED_GREEN] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][RED_BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][GREEN_BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][ALL] ) );
+//
+//		DEBUG_PRINT_CHAR( 'D' );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][RED] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][GREEN] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][RED_GREEN] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][RED_BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][GREEN_BLUE] ) );
+//		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][ALL] ) );
+//
+//		DEBUG_PRINT_CHAR( 'E' ); //  End
+//	}
+////	DEBUG_PRINT_UINT16( ( result[CALIBRATE_INDX][RED] ) );
+////	DEBUG_PRINT_UINT16( ( result[CALIBRATE_INDX][GREEN] ) );
+////	DEBUG_PRINT_UINT16( ( result[CALIBRATE_INDX][BLUE] ) );
+////
+////	DEBUG_PRINT_CHAR( 'M' );
+////	DEBUG_PRINT_UINT16( ( result[MEASURE_INDX][RED] ) );
+////	DEBUG_PRINT_UINT16( ( result[MEASURE_INDX][GREEN] ) );
+////	DEBUG_PRINT_UINT16( ( result[MEASURE_INDX][BLUE] ) );
+////
+////	DEBUG_PRINT_CHAR( 'D' );
+////	DEBUG_PRINT_UINT16( ( result[DIFF_INDX][RED] ) );
+////	DEBUG_PRINT_UINT16( ( result[DIFF_INDX][GREEN] ) );
+////	DEBUG_PRINT_UINT16( ( result[DIFF_INDX][BLUE] ) );
+//}
+
 #endif

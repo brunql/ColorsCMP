@@ -34,54 +34,6 @@ uint8_t timer_ticks_to_get_present = SPEED_TICKS_TO_GET_PRESENT;
 
 
 
-void DebugSendAllResultValues(void)
-{
-	ATOMIC_BLOCK( ATOMIC_RESTORESTATE ){
-		DEBUG_PRINT_CHAR( 'C' );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][RED] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][GREEN] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][RED_GREEN] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][RED_BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][GREEN_BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[CALIBRATE_INDX][ALL] ) );
-
-		DEBUG_PRINT_CHAR( 'M' );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][RED] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][GREEN] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][RED_GREEN] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][RED_BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][GREEN_BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[MEASURE_INDX][ALL] ) );
-
-		DEBUG_PRINT_CHAR( 'D' );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][RED] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][GREEN] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][RED_GREEN] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][RED_BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][GREEN_BLUE] ) );
-		DEBUG_PRINT_UINT16( hex2dec_result( result[DIFF_INDX][ALL] ) );
-
-		DEBUG_PRINT_CHAR( 'E' ); //  End
-	}
-//	DEBUG_PRINT_UINT16( ( result[CALIBRATE_INDX][RED] ) );
-//	DEBUG_PRINT_UINT16( ( result[CALIBRATE_INDX][GREEN] ) );
-//	DEBUG_PRINT_UINT16( ( result[CALIBRATE_INDX][BLUE] ) );
-//
-//	DEBUG_PRINT_CHAR( 'M' );
-//	DEBUG_PRINT_UINT16( ( result[MEASURE_INDX][RED] ) );
-//	DEBUG_PRINT_UINT16( ( result[MEASURE_INDX][GREEN] ) );
-//	DEBUG_PRINT_UINT16( ( result[MEASURE_INDX][BLUE] ) );
-//
-//	DEBUG_PRINT_CHAR( 'D' );
-//	DEBUG_PRINT_UINT16( ( result[DIFF_INDX][RED] ) );
-//	DEBUG_PRINT_UINT16( ( result[DIFF_INDX][GREEN] ) );
-//	DEBUG_PRINT_UINT16( ( result[DIFF_INDX][BLUE] ) );
-}
-
-
 
 //================================================//
 //== 				Joystick click				==//
@@ -180,8 +132,6 @@ ISR(INT1_vect)
 			SnakeGame_TurnLeft();
 		}
 
-//		usbDeviceDisconnect();
-
 		if(menu_now == &results){
 			FLAGS_SWITCH_ON( SAVE_MEASURED_AS_CALIBRATE_FLAG );
 		}else if(menu_now == &set_measure_delay){
@@ -197,9 +147,6 @@ ISR(INT1_vect)
 			SnakeGame_TurnRight();
 		}
 
-
-//		usbInit_FakeUsbDisconnect();
-
 		if(menu_now == &calibration){
 			menu_now = &go;
 		}else if(menu_now == &go){
@@ -214,6 +161,22 @@ ISR(INT1_vect)
 	}
 
 }
+
+volatile uint8_t usb_poll_enabled = 0xff;
+
+ISR(TIMER1_OVF_vect){
+
+	TIMSK &= (uint8_t)~_BV(TOIE1);
+	GICR &=  (uint8_t)~(_BV(JOYSTICK_INT));
+
+	sei(); // TODO: Hard test!!!!
+
+	usbPoll();
+	GICR |=  _BV(JOYSTICK_INT);
+	nop(); // Interrupt from button here if need it
+	TIMSK |= _BV(TOIE1);
+}
+
 
 //================================================//
 //== 			Game timer ticks				==//
@@ -271,7 +234,15 @@ int main(void)
 
     usbInit_FakeUsbDisconnect();
 
+    // TiMER1 (16 bit) Init for usbPoll();
+    TCCR1A = 0x00;
+    TCCR1B = _BV(CS10);	// Interrupts each 1/256s
+    TIMSK |= _BV(TOIE1); // Enable interrupts
+    // End TiMER1 (16 bit) Init
+
     TIM2_INIT(); // see defines.h for details
+
+
 
     // Init ADC
 	ADMUX =  _BV(MUX3) | _BV(MUX0); // diff * 10; result in ADC
@@ -285,11 +256,10 @@ int main(void)
     usbPoll();
 
 	LedDriver_Init();
-	usbPoll();
-//	LedDriver_SwitchLeds(0x0000);
-	LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS );
-	usbPoll();
+	LedDriver_SwitchLeds(0x0000);
+	//LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS );
 
+	usbPoll();
 	Lcd3310_InitializeDisplay( DELAY_SHOW_SPLASH );
 	usbPoll();
 //	DEBUG_PRINT_CHAR( 0x02 );
@@ -299,9 +269,8 @@ int main(void)
 	sei();
 //	DEBUG_PRINT_CHAR( 0x03 );
 
-//	PORTB = _BV( PB6 ); // MISO
-//	DDRB = _BV( PB6 );
-
+	PORTC &= (uint8_t)~_BV(PC3);
+	DDRC |= _BV(PC3);
 
 //	// Test Lcd 3310 Bug...
 //	for(uint8_t a=0; a < 0xff; a++){
@@ -314,14 +283,6 @@ int main(void)
 
 
    	for(;;){
-
-//   		if(PINB & _BV( PB6 )){
-//   			PORTB &=(uint8_t)~ _BV( PB6 );
-//   		}else{
-//   			PORTB = _BV( PB6 );
-//   		}
-
-   		usbPoll();
 
    		IF_FLAG_ON( UPDATE_DISPLAY_FLAG ){
 			FLAGS_SWITCH_OFF( UPDATE_DISPLAY_FLAG );
@@ -364,7 +325,7 @@ int main(void)
 			FLAGS_SWITCH_OFF( SAVE_MEASURED_AS_CALIBRATE_FLAG );
 
 			SaveMeasureResultsToCalibrate();
-			DebugSendAllResultValues();
+//			DebugSendAllResultValues();
 
 			FLAGS_SWITCH_ON( UPDATE_DISPLAY_FLAG );
 		}

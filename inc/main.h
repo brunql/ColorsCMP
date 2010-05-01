@@ -87,6 +87,9 @@ extern uint8_t timer_ticks_to_get_present;
 #define TIM2_CLR_COUNTER_AND_OVF_ON()	{ TCNT2 = 0x00; TIMSK |= _BV(TOIE2); }		/* tim2 interrupt enable */
 #define TIM2_OVF_OFF() 					{ TIMSK &= (uint8_t)~_BV(TOIE2); }	/* tim2 interrupt disable */
 
+
+#define nop()	{__asm__ volatile ("nop"::);}
+
 //#define ABS(x)		(((int16_t)(x)<0)?(-((int16_t)x)):(x))
 //#define DIFF(x,y) 	ABS((int16_t)(x) - (int16_t)(y))
 //#define CONCAT(A, B)	A##B

@@ -10,6 +10,7 @@
 #include "algorithm.h"
 #include "lcd/lcd_nokia_menu.h"
 #include "lcd/lcd_nokia_3310_frm_brunql.h"
+#include "usbdrv.h"
 
 
 //// calibration coefficients
@@ -26,9 +27,9 @@ uint16_t max_diff = ADC_MAX_VALUE;
 // Algorithm results, show this in menu
 uint16_t result[3][7] = {
 //		 R  G  B RG RB GB ALL
-		{0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0}
+		{11, 2,  3,  4,  5,  6,  7},
+		{8,  9,  10, 11, 12, 13, 14},
+		{15, 16, 17, 18, 19, 20, 21}
 };
 
 uint16_t led_show_codes[7] = {
@@ -77,7 +78,7 @@ void ADC_N_Times(void)
 		}
 
 		adc_256_times += (uint32_t) adc_data;
-	} while( ++i != 245 ); // loop 245 times, 7 brrrzzzzzzzzzzz
+	} while( ++i != 0 ); // loop 256 times
 
 	PORTC &= (uint8_t)~_BV(PC3); // test pin down
 
@@ -103,6 +104,8 @@ void SaveMeasureResultsToCalibrate(void)
 	result[DIFF_INDX][RED_BLUE] = 0;
 	result[DIFF_INDX][GREEN_BLUE] = 0;
 	result[DIFF_INDX][ALL] = 0;
+
+	alg_state = HAS_CHANGES;
 
 	Lcd3310_ClearCenter();
 	Lcd3310_GotoXY(5,3);
@@ -147,33 +150,30 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	Lcd3310_Char('[', BLACK_TEXT_ON_WHITE);
 
 	alg_state = STARTS;
-	usbPoll();
 
 	for(uint8_t color=0; color < 3; color++){
 		LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
 		_delay_ms((double) measure_delay * 1000 );
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+
 		alg_state++;
-		usbPoll();
 
 		LedDriver_SwitchLeds( led_show_codes[color] );
 		_delay_ms((double) measure_delay * 1000 );
 
 //		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
 //		alg_state++;
-//		usbPoll();
 
 		ADC_N_Times();
 		Lcd3310_Char('#', BLACK_TEXT_ON_WHITE);
+
 		alg_state++;
-		usbPoll();
 
 		// Start Algorithm
 		(evalMe)(color);
 	}
 //	LedDriver_SwitchLeds( 0x0000 );
 	alg_state = ENDS;
-	usbPoll();
 	LedDriver_SwitchLeds( RED_LEDS | GREEN_LEDS | BLUE_LEDS );
 	Lcd3310_Char(']', BLACK_TEXT_ON_WHITE);
 
@@ -183,7 +183,6 @@ void ADC_LoadingAndEvalIt(ptrEvalMe evalMe)
 	_delay_ms(500); // show complete and wait 0.5 sec
 
 	alg_state = HAS_CHANGES;
-	usbPoll();
 
 	JOYSTICK_INT_ENABLE();
 }
